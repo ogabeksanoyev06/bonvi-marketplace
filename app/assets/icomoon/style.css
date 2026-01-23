@@ -1,0 +1,106 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?w9zri3');
+  src:  url('fonts/icomoon.eot?w9zri3#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?w9zri3') format('truetype'),
+    url('fonts/icomoon.woff?w9zri3') format('woff'),
+    url('fonts/icomoon.svg?w9zri3#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-phone:before {
+  content: "\e912";
+}
+.icon-email:before {
+  content: "\e913";
+}
+.icon-x:before {
+  content: "\e914";
+}
+.icon-facebook:before {
+  content: "\e915";
+}
+.icon-telegram:before {
+  content: "\e916";
+}
+.icon-instagram:before {
+  content: "\e917";
+}
+.icon-plus:before {
+  content: "\e911";
+}
+.icon-calendar:before {
+  content: "\e910";
+}
+.icon-download:before {
+  content: "\e90f";
+}
+.icon-lock .path1:before {
+  content: "\e90d";
+  color: rgb(255, 255, 255);
+}
+.icon-lock .path2:before {
+  content: "\e90e";
+  margin-left: -1em;
+  color: rgb(255, 140, 0);
+}
+.icon-play:before {
+  content: "\e90c";
+}
+.icon-logout:before {
+  content: "\e906";
+}
+.icon-more:before {
+  content: "\e90b";
+}
+.icon-saved:before {
+  content: "\e90a";
+  color: #8e969a;
+}
+.icon-card:before {
+  content: "\e907";
+}
+.icon-order:before {
+  content: "\e908";
+}
+.icon-user:before {
+  content: "\e909";
+}
+.icon-radio-tick .path1:before {
+  content: "\e904";
+  color: rgb(37, 133, 255);
+}
+.icon-radio-tick .path2:before {
+  content: "\e905";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-radio:before {
+  content: "\e903";
+}
+.icon-icon-tick:before {
+  content: "\e902";
+}
+.icon-chevron:before {
+  content: "\e901";
+}
+.icon-location-pin:before {
+  content: "\e900";
+}

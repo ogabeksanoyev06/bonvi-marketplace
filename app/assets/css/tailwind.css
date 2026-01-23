@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+	.transition-300 {
+		@apply transition-all duration-300;
+	}
+	.transition-200 {
+		@apply transition-all duration-200;
+	}
+
+	.absolute-x {
+		@apply absolute left-1/2 -translate-x-1/2;
+	}
+	.absolute-y {
+		@apply absolute top-1/2 -translate-y-1/2;
+	}
+	.absolute-center {
+		@apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+	}
+
+	.flex-y-center {
+		@apply flex items-center;
+	}
+	.flex-x-center {
+		@apply flex justify-center;
+	}
+	.flex-center {
+		@apply flex items-center justify-center;
+	}
+	.flex-center-between {
+		@apply flex items-center justify-between;
+	}
+	.flex-between {
+		@apply flex justify-between;
+	}
+}

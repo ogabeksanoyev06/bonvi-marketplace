@@ -1,0 +1,91 @@
+.fade-enter-active {
+	animation: fade 0.3s ease-in-out;
+}
+.fade-leave-active {
+	animation: fade 0.3s ease-in-out reverse;
+}
+
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.page-change-enter-active {
+	animation: page-change 200ms ease-out;
+}
+.page-change-leave-active {
+	animation: page-change 200ms ease-in reverse;
+}
+
+@keyframes page-change {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes scroll {
+	0% {
+		transform: translate(0);
+	}
+	100% {
+		transform: translate(-100%);
+	}
+}
+
+@keyframes scroll-right {
+	0% {
+		transform: translateZ(0);
+	}
+
+	to {
+		transform: translate3d(-50%, 0, 0);
+	}
+}
+
+@keyframes scroll-left {
+	0% {
+		transform: translate3d(-50%, 0, 0);
+	}
+
+	to {
+		transform: translateZ(0);
+	}
+}
+
+.animate-scroll-right {
+	animation: scroll-right 30s linear infinite;
+}
+
+.animate-scroll-left,
+.animate-scroll-right {
+	contain: layout style paint;
+	width: -moz-max-content;
+	width: max-content;
+	will-change: transform;
+}
+
+.animate-scroll-left {
+	animation: scroll-left 30s linear infinite;
+}
+
+.animate-scroll-left:hover,
+.animate-scroll-right:hover {
+	animation-play-state: paused;
+}
+
+.carousel-track {
+	animation: scroll-left 10s linear infinite;
+	display: flex;
+	width: -moz-max-content;
+	width: max-content;
+}
+.carousel-track:hover {
+	animation-play-state: paused;
+}

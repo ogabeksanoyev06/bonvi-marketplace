@@ -1,0 +1,64 @@
+@import "./tailwind.css";
+@import "./fonts.css";
+@import "./transition.css";
+
+body {
+	background-color: #f3f6f8;
+	color: #020d17;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 130%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.skeleton {
+	background-color: #f6f7f8;
+	background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	display: inline-block;
+	position: relative;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-name: placeholderShimmer;
+	animation-timing-function: linear;
+}
+
+.image-loading {
+	position: relative;
+	overflow: hidden;
+}
+.image-loading:after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #f6f7f8;
+	background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	animation-iteration-count: infinite;
+	animation-name: placeholderShimmer;
+	animation-timing-function: linear;
+}
+@keyframes placeholderShimmer {
+	0% {
+		background-position: -468px 0;
+	}
+
+	100% {
+		background-position: 468px 0;
+	}
+}
+
+.section-title {
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 130%;
+	font-family: "Adero Trial", sans-serif;
+}

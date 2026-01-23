@@ -1,0 +1,18 @@
+{
+  "tabWidth": 2,
+  "singleQuote": true,
+  "semi": false,
+  "printWidth": 180,
+  "proseWrap": "always",
+  "requireConfig": false,
+  "useTabs": true,
+  "trailingComma": "none",
+  "overrides": [
+    {
+      "files": ["**/*.css", "**/*.scss", "**/*.html"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
+}
