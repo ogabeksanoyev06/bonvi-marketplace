@@ -1,6 +1,6 @@
 <template>
-	<div class="transition-300 h-full max-sm:bg-white sm:hover:scale-105 sm:hover:shadow-card rounded-[32px] sm:hover:bg-white py-4 sm:hover:px-4 group flex flex-col">
-		<div class="bg-white mb-4 relative rounded-[20px] overflow-hidden sm:group-hover:bg-gray">
+	<div class="transition-300 h-full max-sm:bg-white sm:hover:scale-105 sm:hover:shadow-card rounded-[32px] sm:hover:bg-white sm:hover:p-4 group flex flex-col">
+		<div class="mb-4 relative rounded-[20px] overflow-hidden sm:group-hover:bg-gray" :class="imageBg === 'white' ? 'bg-white' : 'bg-gray'">
 			<Swiper v-bind="settings" @swiper="onSwiper" @slideChange="onSlideChange">
 				<SwiperSlide v-for="(image, key) in images" :key="key">
 					<UIImage :src="image" image-class="!size-[221px] aspect-square !object-contain" class="flex justify-center pb-7 pt-4" />
@@ -47,15 +47,21 @@ import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/autoplay'
 
-defineProps<{
-	images: string[]
-	title: string
-	description: string
-	originalPrice: number
-	discountedPrice: number
-	discountPercent: string
-	brand: string
-}>()
+const props = withDefaults(
+	defineProps<{
+		images: string[]
+		title: string
+		description: string
+		originalPrice: number
+		discountedPrice: number
+		discountPercent: string
+		brand: string
+		imageBg?: 'white' | 'blue'
+	}>(),
+	{
+		imageBg: 'white'
+	}
+)
 
 const swiper = ref<any>(null)
 const activeIndex = ref(0)

@@ -31,10 +31,12 @@
 						<img src="/images/header/basket.svg" alt="icon cart" />
 					</NuxtLinkLocale>
 					<div class="w-0.5 h-[30px] rounded-full bg-gray shrink-0" />
-					<LayoutHeaderAuthorization />
+					<LayoutHeaderAuthorization @open-auth="isOpen = true" />
 				</div>
 			</div>
 		</div>
+
+		<ModalAuth v-model="isOpen" />
 	</header>
 </template>
 
@@ -44,6 +46,8 @@ import { useWindowScroll } from '@vueuse/core'
 
 const { y } = useWindowScroll()
 const { t } = useI18n()
+
+const isOpen = ref(false)
 
 const navigationLinks = computed(() => [
 	{

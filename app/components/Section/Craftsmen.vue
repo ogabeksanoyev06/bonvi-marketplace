@@ -18,7 +18,7 @@
 				<template v-else>
 					<Swiper v-bind="settings" class="!overflow-visible">
 						<SwiperSlide v-for="item in 8" :key="item">
-							<CardCraftsmen :name="'Abdurahim Muhammadamin'" :service="'Avtomobil shinalarini almashtirish'" :phone="'+998 90 123 45 67'" />
+							<CardCraftsmen :name="'Abdurahim Eshonjonov'" :service="'Avtomobil shinalarini almashtirish'" :phone="'+998 90 123 45 67'" :city="'Toshkent shahri'" />
 						</SwiperSlide>
 					</Swiper>
 				</template>
@@ -37,7 +37,7 @@ const isPending = ref(true)
 
 const settings = {
 	modules: [Autoplay],
-	spaceBetween: 24,
+	spaceBetween: 16,
 	slidesPerView: 4,
 	loop: true,
 	autoplay: {
@@ -59,7 +59,7 @@ const settings = {
 			spaceBetween: 20
 		},
 		1024: {
-			slidesPerView: 6.3,
+			slidesPerView: 5.3,
 			spaceBetween: 24
 		}
 	}

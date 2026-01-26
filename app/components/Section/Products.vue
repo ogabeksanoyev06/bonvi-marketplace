@@ -29,9 +29,9 @@
 				</div>
 			</transition>
 
-			<div class="mx-auto">
+			<NuxtLinkLocale to="/products" class="mx-auto">
 				<UIButton text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
-			</div>
+			</NuxtLinkLocale>
 		</div>
 	</section>
 </template>

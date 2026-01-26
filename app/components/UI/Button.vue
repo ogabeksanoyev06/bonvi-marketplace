@@ -70,7 +70,7 @@ const props = defineProps({
 
 const variants = {
 	primary: 'bg-blue text-white hover:bg-blue/90',
-	secondary: 'bg-gray-1 text-gray-6 hover:bg-gray-1/90',
+	secondary: 'bg-gray text-dark hover:bg-gray/90',
 	dark: 'bg-gray-6 text-white',
 	white: 'bg-white text-blue'
 }

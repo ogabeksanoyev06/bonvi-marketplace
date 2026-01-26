@@ -1,5 +1,6 @@
 <template>
-	<UIDropdown :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
+	<UIButton text="Kirish" class="font-medium max-w-[100px] w-full" icon="icon-logout text-2xl leading-6" @click="emit('open-auth')" />
+	<UIDropdown v-if="false" :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
 		<template #head="{ show }">
 			<div
 				class="flex items-center h-14 gap-1 bg-gray pr-4 rounded-full border-2 border-transparent overflow-hidden cursor-pointer transition-300"
@@ -30,6 +31,10 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+
+const emit = defineEmits<{
+	(e: 'open-auth'): void
+}>()
 
 const showDropdown = ref(false)
 
