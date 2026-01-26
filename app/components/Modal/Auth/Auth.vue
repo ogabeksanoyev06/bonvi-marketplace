@@ -4,7 +4,7 @@
 			<!-- header -->
 			<div class="flex flex-col items-center gap-4" v-if="step != 2">
 				<div class="size-[76px] flex-center border border-white/10 bg-[linear-gradient(49deg,_#4C00FF_14.7%,_#00AEFF_81.51%)] rounded-full p-[14px]">
-					<img src="/images/phone_call.svg" alt="" class="size-12 aspect-square" />
+					<img :src="step === 1 ? '/images/phone_call.svg' : step === 3 ? '/images/message.svg' : '/images/auth-user.svg'" alt="" class="size-12 aspect-square" />
 				</div>
 				<h3 class="text-xl font-bold leading-130 transition-300" v-if="step !== 3">
 					{{ step === 4 ? 'O‘zingiz haqingizda' : 'Ro‘yxatdan o‘tish' }}
