@@ -1,6 +1,6 @@
 <template>
-	<div class="transition-300 h-full max-sm:bg-white sm:hover:scale-105 sm:hover:shadow-card rounded-[32px] sm:hover:bg-white sm:hover:p-4 group flex flex-col">
-		<div class="mb-4 relative rounded-[20px] overflow-hidden sm:group-hover:bg-gray" :class="imageBg === 'white' ? 'bg-white' : 'bg-gray'">
+	<div class="transition-300 h-full sm:hover:scale-105 sm:hover:shadow-card rounded-[32px] sm:hover:bg-white sm:hover:p-4 group flex flex-col">
+		<div class="mb-4 relative rounded-[20px] overflow-hidden sm:group-hover:bg-gray shrink-0" :class="imageBg === 'white' ? 'bg-white' : 'bg-gray'">
 			<Swiper v-bind="settings" @swiper="onSwiper" @slideChange="onSlideChange">
 				<SwiperSlide v-for="(image, key) in images" :key="key">
 					<UIImage :src="image" image-class="!size-[221px] aspect-square !object-contain" class="flex justify-center pb-7 pt-4" />
@@ -33,7 +33,7 @@
 					<span class="text-sm sm:text-base !leading-130 line-through ml-2 opacity-60">{{ formatMoneyDecimal(discountedPrice) }} UZS</span>
 				</div>
 			</div>
-			<UIButton class="w-full !bg-[#0083FF14] !text-blue !font-medium">
+			<UIButton class="w-full mt-auto !bg-[#0083FF14] !text-blue !font-medium">
 				Savatga qo‘shish
 				<img src="/images/shopping-bag.svg" alt="" />
 			</UIButton>
@@ -59,7 +59,7 @@ const props = withDefaults(
 		imageBg?: 'white' | 'blue'
 	}>(),
 	{
-		imageBg: 'white'
+		imageBg: 'blue'
 	}
 )
 

@@ -1,5 +1,8 @@
 <template>
-	<UIButton text="Kirish" class="font-medium max-w-[100px] w-full" icon="icon-logout text-2xl leading-6" @click="emit('open-auth')" />
+	<UIButton class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="emit('open-auth')">
+		Kirish
+		<span class="icon-logout text-2xl leading-6 lg:block hidden"></span>
+	</UIButton>
 	<UIDropdown v-if="false" :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
 		<template #head="{ show }">
 			<div

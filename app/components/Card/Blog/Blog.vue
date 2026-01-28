@@ -1,5 +1,5 @@
 <template>
-	<NuxtLinkLocale to="/" class="bg-white rounded-2xl p-2 w-full flex flex-col gap-6 group">
+	<NuxtLinkLocale to="/blog/1" class="bg-white rounded-2xl md:p-2 w-full flex flex-col gap-6 group">
 		<img :src="image" :alt="title" class="rounded-[20px] h-[258px] w-full object-cover" />
 
 		<div class="flex flex-col gap-3">

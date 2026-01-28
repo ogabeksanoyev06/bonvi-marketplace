@@ -1,11 +1,11 @@
 <template>
-	<section class="mb-10 container px-0 relative overflow-hidden rounded-[40px] py-14">
+	<section class="mb-8 md:mb-10 container px-0 relative overflow-hidden rounded-[40px] py-7 md:py-14">
 		<img src="/images/background-patterns.webp" alt="" class="absolute inset-0 w-full h-full z-[-1] object-top object-cover" />
 
-		<div class="flex flex-col gap-10 max-w-[1280px] w-full mx-auto max-sm:px-4">
-			<div class="flex flex-col items-center text-center gap-6">
+		<div class="flex flex-col gap-7 sm:gap-10 max-w-[1280px] w-full mx-auto max-sm:px-4">
+			<div class="flex flex-col items-center text-center gap-[14px] md:gap-6">
 				<h1 class="text-3xl md:text-4xl lg:text-6xl xl:text-7xl leading-[90%] font-bold md:tracking-[-4px] font-adero-trial text-shadow">Biz haqimizda</h1>
-				<p class="text-xl sm:text-2xl !leading-130 text-white">
+				<p class="text-sm sm:text-2xl !leading-130 text-white">
 					O’zbekistondagi milliy brend 3 ta brendni birlashtirgan korxona. O’zbekistondagi milliy brend 3 ta brendni birlashtirgan korxona.O’zbekistondagi milliy brend 3 ta brendni
 					birlashtirgan korxona.
 				</p>
@@ -13,14 +13,14 @@
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
 				<div
 					v-for="brand in brands"
-					class="flex flex-col items-start min-h-[383px] gap-6 rounded-[40px] border-2 border-white/10 bg-black/10 backdrop-blur-[20px] px-8 pt-8 relative overflow-hidden z-10 hover:backdrop-blur-2xl transition-300"
+					class="flex flex-col items-start min-h-[327px] sm:min-h-[383px] gap-6 rounded-[40px] border-2 border-white/10 bg-black/10 backdrop-blur-[20px] px-8 pt-8 relative overflow-hidden z-10 hover:backdrop-blur-2xl transition-300"
 				>
 					<img :src="brand.logo" alt="dark logo" class="h-14 object-contain" />
 					<p class="text-base leading-140 text-white">{{ brand.description }}</p>
 					<a :href="brand.url" target="_blank">
 						<UIButton text="Batafsil" class="!bg-white !text-dark" icon="icon-more text-2xl leading-6" />
 					</a>
-					<img :src="brand.pattern" alt="" class="absolute -bottom-8 z-[-1] right-2 w-[280px] aspect-[280.06/254.06] object-contain" />
+					<img :src="brand.pattern" alt="" class="absolute -bottom-8 z-[-1] right-2 w-[186px] aspect-[186.10/186.10] sm:w-[280px] sm:aspect-[280.06/254.06] object-contain" />
 				</div>
 			</div>
 		</div>

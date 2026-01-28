@@ -1,19 +1,18 @@
 <template>
 	<button
 		:class="[variants[variant], sizes[size], { '!pointer-events-none': loading }]"
-		class="relative inline-flex items-center justify-center h-10 gap-2 whitespace-nowrap text-base leading-140 font-bold transition-300 rounded-full active:scale-95 group/button disabled:opacity-50 disabled:pointer-events-none shrink-0 group"
+		class="relative inline-flex items-center justify-center h-10 gap-2 whitespace-nowrap text-base leading-140 font-bold transition-300 rounded-full active:scale-95 group/button disabled:opacity-50 disabled:pointer-events-none group"
 		v-bind="{ disabled, type }"
 	>
 		<span
 			:class="[
 				{
 					'!opacity-0': loading,
-					'flex-center justify-center gap-2': text?.length,
 					'flex-row-reverse': iconPosition === 'left'
 				},
 				mainClass
 			]"
-			class="text-center whitespace-nowrap"
+			class="text-center whitespace-nowrap flex-center justify-center gap-2"
 		>
 			<slot>
 				<span v-if="iconLeft?.length" :class="iconLeft" />

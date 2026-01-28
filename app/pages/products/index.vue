@@ -11,8 +11,8 @@
 		<div class="container bg-white rounded-[40px] p-10">
 			<div class="grid lg:grid-cols-12 gap-8">
 				<div class="sticky h-[calc(100vh-124px)] top-28 lg:col-span-3 hidden lg:block">
-					<div class="h-full overflow-y-auto">
-						<div class="bg-gray p-3 rounded-2xl"></div>
+					<div class="h-full overflow-y-auto rounded-2xl scrollbar-hide">
+						<ProductFilter />
 					</div>
 				</div>
 				<div class="lg:col-span-9">

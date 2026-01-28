@@ -1,23 +1,34 @@
 <template>
 	<label
 		class="group inline-flex items-center relative select-none"
-		:class="disabled ? 'cursor-not-allowed' : 'cursor-pointer'"
+		:class="disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'"
 		@click="handleClick"
 		@keydown.space.prevent="handleClick"
 	>
-		<span role="checkbox" :aria-checked="indeterminate ? 'mixed' : modelValue" :aria-disabled="disabled" tabindex="0" class="checkbox-box flex-center" :class="checkboxClasses">
-			<svg v-if="modelValue && !indeterminate" xmlns="http://www.w3.org/2000/svg" width="11" height="8" viewBox="0 0 11 8" fill="none">
+		<!-- Checkbox box -->
+		<span
+			role="checkbox"
+			tabindex="0"
+			:aria-checked="indeterminate ? 'mixed' : isChecked"
+			:aria-disabled="disabled"
+			class="flex-center shrink-0 h-6 w-6 rounded-md border-[2px] relative transition-300"
+			:class="checkboxClasses"
+		>
+			<!-- Checked -->
+			<svg v-if="isChecked && !indeterminate" xmlns="http://www.w3.org/2000/svg" width="11" height="8" viewBox="0 0 11 8" fill="none">
 				<path d="M1 4.6L3.4 7L9.4 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 			</svg>
 
-			<svg v-if="indeterminate" class="absolute inset-0 m-auto transition-all duration-200" xmlns="http://www.w3.org/2000/svg" width="10" height="2" viewBox="0 0 10 2" fill="none">
-				<path d="M1 1H9" stroke="white" stroke-width="2" stroke-linecap="round" />
+			<!-- Indeterminate -->
+			<svg v-if="indeterminate" xmlns="http://www.w3.org/2000/svg" width="12" height="2" viewBox="0 0 12 2" fill="none">
+				<path d="M1 1H11" stroke="white" stroke-width="2" stroke-linecap="round" />
 			</svg>
 		</span>
 
-		<span v-if="label || $slots.label" class="ml-2 leading-130 text-sm text-[#1F1F24]">
+		<!-- Label -->
+		<span v-if="label || $slots.label" class="text-sm leading-130 text-[#1F1F24]">
 			<slot name="label">
-				<span class="leading-130 text-sm text-[#1F1F24] font-medium" :class="labelStyles">
+				<span class="font-medium" :class="labelStyles">
 					{{ label }}
 				</span>
 			</slot>
@@ -26,12 +37,17 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
+type CheckboxValue = string | number
+
 interface Props {
 	label?: string
+	value?: CheckboxValue
 	disabled?: boolean
 	error?: boolean
-	labelStyles?: string | string[]
 	indeterminate?: boolean
+	labelStyles?: string | string[]
 	checkboxStyles?: string | string[]
 }
 
@@ -41,45 +57,44 @@ const props = withDefaults(defineProps<Props>(), {
 	indeterminate: false
 })
 
-const modelValue = defineModel<boolean>({ default: false })
+const modelValue = defineModel<boolean | CheckboxValue[]>({
+	default: false
+})
+
+const isChecked = computed<boolean>(() => {
+	if (Array.isArray(modelValue.value)) {
+		return props.value !== undefined ? modelValue.value.includes(props.value) : false
+	}
+	return modelValue.value
+})
 
 const handleClick = () => {
 	if (props.disabled) return
 
-	if (props.indeterminate) {
-		modelValue.value = true
-	} else {
-		modelValue.value = !modelValue.value
+	if (Array.isArray(modelValue.value)) {
+		if (props.value === undefined) return
+
+		const index = modelValue.value.indexOf(props.value)
+
+		if (index === -1) {
+			modelValue.value.push(props.value)
+		} else {
+			modelValue.value.splice(index, 1)
+		}
+		return
 	}
+
+	modelValue.value = !modelValue.value
 }
 
 const checkboxClasses = computed(() => [
-	// Base styles
-	'shrink-0 duration-200 ease-in-out inline-block h-6 w-6 rounded-md border-[1.5px] bg-white border-[#D9DCDC] relative',
-
-	// Checked state
-	modelValue.value && '!border-blue !bg-blue',
-
-	// Indeterminate state
-	props.indeterminate && '!border-blue !bg-blue',
-
-	// Error state
+	'bg-white border-[#D9DCDC]',
+	isChecked.value && '!bg-blue !border-blue',
+	props.indeterminate && '!bg-blue !border-blue',
 	props.error && '!border-red bg-white',
-
-	// Hover effect
-	!props.disabled && 'group-hover:border-blue group-hover:bg-white',
-
-	// Custom styles
+	!props.disabled && 'group-hover:border-blue',
 	props.checkboxStyles
 ])
 </script>
 
-<style scoped>
-.checkbox-box {
-	outline: none;
-}
-
-.checkbox-box:focus-visible {
-	@apply ring-2 ring-blue ring-offset-2;
-}
-</style>
+<style scoped></style>

@@ -1,7 +1,7 @@
 <template>
-	<section class="bg-blue-light py-10">
+	<section class="bg-blue-light py-6 md:py-10">
 		<div class="container">
-			<h2 class="section-title mb-6 text-center">Tez-tez so‘raladigan savollar</h2>
+			<h2 class="section-title max-md:!text-xl mb-6 text-center">Tez-tez so‘raladigan savollar</h2>
 			<div class="flex flex-col gap-3 bg-black rounded-[40px] p-3 shadow-faq">
 				<UIAccordion
 					v-for="(item, index) in faqs"
@@ -12,7 +12,7 @@
 				>
 					<template #header>
 						<div class="flex justify-between items-center rounded-[28px] gap-4">
-							<span class="text-xl md:text-2xl font-bold text-white">
+							<span class="text-sm md:text-2xl font-bold text-white">
 								{{ item.title }}
 							</span>
 							<span class="size-8 md:size-10 p-2 flex-center rounded-full bg-white/10 border border-white/10 transition-300" :class="active === index ? 'rotate-45' : 'rotate-0'">

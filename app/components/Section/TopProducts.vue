@@ -1,11 +1,9 @@
 <template>
-	<section class="container py-10">
-		<div class="space-y-8 bg-[#0083FF14] rounded-[40px] p-8 overflow-hidden">
-			<div class="flex-center-between">
-				<div class="flex-y-center gap-1">
-					<img src="/images/fire-icon.svg" alt="fire-icon" class="size-10" />
-					<h2 class="section-title">Top mahsulotlar</h2>
-				</div>
+	<section class="md:container md:py-10">
+		<div class="md:space-y-8 bg-[#0083FF14] rounded-[40px] px-4 py-5 md:px-8 md:py-8 overflow-hidden">
+			<div class="flex-y-center gap-1 max-md:mb-5">
+				<img src="/images/fire-icon.svg" alt="fire-icon" class="size-10 md:block hidden" />
+				<h2 class="section-title">Top mahsulotlar</h2>
 			</div>
 
 			<transition name="fade" mode="out-in">
@@ -25,14 +23,15 @@
 								:discountedPrice="item.discountedPrice"
 								:discountPercent="item.discountPercent"
 								:brand="item.brand"
+								imageBg="white"
 							/>
 						</SwiperSlide>
 					</Swiper>
 				</template>
 			</transition>
 
-			<div class="flex justify-center">
-				<UIButton text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
+			<div class="flex justify-center max-md:mt-8">
+				<UIButton class="max-md:w-full" text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
 			</div>
 		</div>
 	</section>

@@ -1,5 +1,5 @@
 <template>
-	<div class="container hidden-on-print max-md:hidden py-2.5">
+	<div class="container hidden-on-print py-2.5">
 		<div class="bg-white h-9 rounded-full flex items-center px-4 py-2 w-fit">
 			<nuxt-link-locale to="/" aria-label="home" class="text-black text-sm leading-130 flex items-center font-bold hover:text-blue transition-300 group">
 				{{ $t('home') }}
@@ -9,7 +9,7 @@
 				<nuxt-link-locale
 					v-if="index !== routes.length - 1"
 					:to="link.path"
-					class="text-[#B3B3B3] text-sm leading-130 font-bold flex items-center hover:text-blue transition-300 capitalize"
+					class="text-black text-sm leading-130 font-bold flex items-center hover:text-blue transition-300 capitalize"
 				>
 					{{ $t(link.name) }}
 				</nuxt-link-locale>

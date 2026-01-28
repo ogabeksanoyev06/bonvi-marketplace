@@ -56,9 +56,29 @@ body {
 	}
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
 .section-title {
 	font-size: 28px;
 	font-weight: 700;
 	line-height: 130%;
 	font-family: "Adero Trial", sans-serif;
+}
+
+@media (max-width: 768px) {
+	.section-title {
+		font-size: 24px;
+	}
+}
+
+@media (max-width: 480px) {
+	.section-title {
+		font-size: 16px;
+	}
 }

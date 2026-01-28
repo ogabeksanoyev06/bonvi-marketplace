@@ -1,9 +1,9 @@
 <template>
-	<section class="container px-0 py-10">
-		<div class="flex flex-col gap-8 bg-white rounded-[40px] p-8">
+	<section class="container px-0 md:py-10">
+		<div class="flex flex-col gap-8 bg-white rounded-[40px] px-4 py-5 md:px-8 md:py-8">
 			<div class="flex-center-between">
 				<div class="flex-y-center gap-1">
-					<img src="/images/scooter.svg" alt="fire-icon" class="size-10" />
+					<img src="/images/scooter.svg" alt="fire-icon" class="size-10 md:block hidden" />
 					<h2 class="section-title">Mahsulotlar to‘plami</h2>
 				</div>
 			</div>
@@ -24,13 +24,14 @@
 							:discountedPrice="item.discountedPrice"
 							:discountPercent="item.discountPercent"
 							:brand="item.brand"
+							imageBg="blue"
 						/>
 					</template>
 				</div>
 			</transition>
 
-			<NuxtLinkLocale to="/products" class="mx-auto">
-				<UIButton text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
+			<NuxtLinkLocale to="/products" class="mx-auto max-sm:w-full">
+				<UIButton text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" class="w-full" />
 			</NuxtLinkLocale>
 		</div>
 	</section>

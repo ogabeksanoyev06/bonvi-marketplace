@@ -19,3 +19,16 @@ export function phoneNumberFormat(number: string) {
 	}
 	return number
 }
+
+export const moneyMask = () => ({
+	mask: ['D', '##', '###', '# ###', '## ###', '### ###', '# ### ###', '## ### ###', '### ### ###', '# ### ### ###'],
+	tokens: {
+		D: {
+			pattern: /[1-9]/
+		}
+	}
+})
+
+export const removeSpaces = (text: string) => {
+	return text?.replace(/\s/g, '')
+}

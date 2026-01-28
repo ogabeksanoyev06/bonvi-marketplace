@@ -1,15 +1,15 @@
 <template>
-	<section class="container px-0">
-		<div class="flex flex-col gap-8 bg-white rounded-[40px] p-10">
+	<section class="container md:px-0">
+		<div class="flex flex-col gap-6 md:gap-8 bg-white rounded-[40px] px-4 py-6 md:px-10 md:py-10">
 			<div class="flex-center-between">
 				<h2 class="section-title">Blog va yangiliklar</h2>
-				<UIButton text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
+				<UIButton class="md:flex hidden" text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
 			</div>
-			<div class="flex flex-col md:flex-row md:items-stretch gap-4 md:gap-10 bg-white rounded-2xl overflow-hidden">
-				<div class="relative md:max-w-[582px] w-full aspect-video md:aspect-auto md:h-[340px]">
+			<div class="flex flex-col md:flex-row md:items-stretch gap-6 md:gap-10 bg-white rounded-2xl overflow-hidden">
+				<div class="relative md:max-w-[582px] w-full aspect-video md:aspect-auto h-[340px]">
 					<UIImage src="/images/background-patterns.webp" alt="blog-main-article" class="rounded-2xl object-cover w-full h-full" />
 				</div>
-				<div class="flex flex-col justify-between gap-5 md:gap-10 md:max-w-[562px] w-full">
+				<div class="flex flex-col justify-between gap-4 md:gap-10 md:max-w-[562px] w-full">
 					<div class="flex flex-col gap-2 md:gap-7">
 						<div class="flex-y-center gap-1 border border-gray px-2 py-1.5 rounded-[20px] w-max">
 							<span class="icon-calendar text-xl leading-5 text-gray-3"></span>
@@ -23,7 +23,7 @@
 							</p>
 						</div>
 					</div>
-					<UIButton text="Batafsil" class="md:w-[136px]" />
+					<UIButton text="Batafsil" class="w-[104px] md:w-[136px]" />
 				</div>
 			</div>
 			<transition name="fade" mode="out-in">

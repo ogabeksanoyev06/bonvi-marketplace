@@ -1,12 +1,12 @@
 <template>
-	<section class="container py-10">
-		<div class="space-y-8 bg-white rounded-[40px] p-8 overflow-hidden">
+	<section class="container py-8 md:py-10">
+		<div class="space-y-8 bg-white rounded-[40px] p-5 md:p-8 overflow-hidden">
 			<div class="flex-center-between">
 				<div class="flex-y-center gap-1">
-					<img src="/images/fire-icon.svg" alt="fire-icon" class="size-10" />
+					<img src="/images/fire-icon.svg" alt="fire-icon" class="size-10 md:block hidden" />
 					<h2 class="section-title">Mohir ustalarimiz</h2>
 				</div>
-				<UIButton class="" text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
+				<UIButton class="md:flex hidden" text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
 			</div>
 
 			<transition name="fade" mode="out-in">
@@ -23,6 +23,10 @@
 					</Swiper>
 				</template>
 			</transition>
+
+			<NuxtLinkLocale to="/" class="mx-auto max-sm:w-full mt-5 block md:hidden">
+				<UIButton text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" class="w-full" />
+			</NuxtLinkLocale>
 		</div>
 	</section>
 </template>

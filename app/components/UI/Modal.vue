@@ -1,26 +1,39 @@
 <template>
 	<Teleport to="body">
 		<div
-			:class="[wrapperClass, { '!opacity-100 !visible': value }]"
 			data-modal="wrapper"
-			class="fixed w-full h-full bg-black/50 flex justify-center items-center z-[100] top-0 left-0 invisible opacity-0 transition-300 p-3"
 			@click="handleOuterClick"
+			class="fixed inset-0 bg-black/50 z-[100] transition-300 invisible opacity-0"
+			:class="[wrapperClass, { '!opacity-100 !visible': value }, props.variant === 'mobile' ? 'flex items-end' : 'flex items-center justify-center p-3']"
 		>
-			<Transition name="modal" mode="out-in">
-				<div v-if="value" class="bg-white w-full lg:max-w-[480px] relative max-h-screen md:overflow-y-auto rounded-[32px]" :class="[bodyClass, { animated: animationIn }]">
-					<div v-if="!noHeader" class="flex items-center border-b border-gray px-6 pt-5 pb-3 rounded-t-[32px]" :class="[headerStyle]">
+			<Transition :name="transitionName" mode="out-in">
+				<div
+					v-if="value"
+					:class="[
+						'bg-white w-full overflow-y-auto relative',
+						props.variant === 'mobile' ? 'rounded-t-[32px] max-h-[calc(100vh-100px)]' : 'max-h-screen lg:max-w-[480px] rounded-[32px]',
+						bodyClass,
+						{ animated: animationIn }
+					]"
+				>
+					<!-- HEADER -->
+					<div v-if="!noHeader" class="flex items-center border-b border-gray px-6 pt-5 pb-3" :class="headerStyle">
 						<slot name="header">
-							<h3 class="w-full text-base md:text-lg !leading-130 font-bold font-adero-trial" :class="titleStyle">
+							<h3 class="w-full text-base md:text-lg font-bold" :class="titleStyle">
 								{{ title }}
 							</h3>
-							<button class="w-6 md:w-8 h-6 md:h-8 bg-[#EDF2F7] rounded-full shrink-0 flex-center p-1 transition-300 active:scale-95 group" @click="value = false">
-								<span class="icon-x-mark text-lg md:text-2xl leading-[18px] md:leading-6 text-[#1C2329] group-hover:text-red transition-300" />
+							<button class="w-8 h-8 bg-[#EDF2F7] rounded-full flex-center active:scale-95" @click="value = false">
+								<span class="icon-x-mark text-xl" />
 							</button>
 						</slot>
 					</div>
-					<button v-if="noHeader && hasCloseIcon" class="absolute -top-7 lg:-top-12 -right-0 lg:-right-[80px] active:scale-95 group" @click="value = false">
-						<span class="icon-x-mark text-2xl leading-6 text-[#011118] group-hover:text-red-600 transition-300" />
+
+					<!-- CLOSE ICON (NO HEADER) -->
+					<button v-if="noHeader && hasCloseIcon" class="absolute top-4 right-4 active:scale-95" @click="value = false">
+						<span class="icon-x-mark text-2xl" />
 					</button>
+
+					<!-- CONTENT -->
 					<slot />
 				</div>
 			</Transition>
@@ -39,14 +52,11 @@ interface Props {
 	hasCloseIcon?: boolean
 	titleStyle?: string
 	headerStyle?: string
+	variant?: 'desktop' | 'mobile'
 }
 const props = withDefaults(defineProps<Props>(), {
 	title: 'Modal title',
-	titleStyle: '',
-	headerStyle: '',
-	wrapperClass: '',
-	bodyClass: '',
-	modalClass: ''
+	variant: 'desktop'
 })
 
 interface Emits {
@@ -55,6 +65,14 @@ interface Emits {
 const emit = defineEmits<Emits>()
 const value = defineModel<boolean>('modelValue', { required: true })
 const animationIn = ref(false)
+
+const transitionName = computed(() => {
+	return props.variant === 'mobile' ? 'mobile-modal' : 'modal'
+})
+
+const modalBodyClass = computed(() => {
+	return props.variant === 'mobile' ? 'fixed bottom-0 left-0 w-full rounded-t-[32px]' : 'relative w-full lg:max-w-[480px] rounded-[32px]'
+})
 
 function handleOuterClick(e: Event) {
 	const target = e.target as HTMLElement
@@ -91,62 +109,45 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@keyframes modal {
-	from {
-		opacity: 0;
-		transform: translateY(-40px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-.modal-enter-active {
-	animation: modal 0.3s ease-in-out;
-}
+.modal-enter-active,
 .modal-leave-active {
-	animation: modal 0.3s ease-in-out reverse;
+	transition: all 0.3s ease;
+}
+.modal-enter-from,
+.modal-leave-to {
+	opacity: 0;
+	transform: translateY(-30px);
 }
 
-@keyframes mobile-modal {
-	from {
-		opacity: 0;
-		transform: translateY(50%);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-.mobile-modal-enter-active {
-	animation: mobile-modal 0.5s ease-in-out;
-}
+.mobile-modal-enter-active,
 .mobile-modal-leave-active {
-	animation: mobile-modal 0.5s ease-in-out reverse;
+	transition: all 0.4s ease;
+}
+.mobile-modal-enter-from,
+.mobile-modal-leave-to {
+	opacity: 0;
+	transform: translateY(100%);
 }
 
-@keyframes horizontal-shaking {
+.animated {
+	animation: shake 0.4s ease;
+}
+
+@keyframes shake {
 	0% {
 		transform: translateX(0);
 	}
-	20% {
-		transform: translateX(-8px);
-	}
-	40% {
-		transform: translateX(8px);
-	}
-	60% {
+	25% {
 		transform: translateX(-6px);
 	}
-	80% {
+	50% {
 		transform: translateX(6px);
+	}
+	75% {
+		transform: translateX(-4px);
 	}
 	100% {
 		transform: translateX(0);
 	}
-}
-.animated {
-	animation: horizontal-shaking 0.4s ease-in-out;
 }
 </style>
