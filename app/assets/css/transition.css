@@ -89,3 +89,19 @@
 .carousel-track:hover {
 	animation-play-state: paused;
 }
+
+/* Tab content fade transition */
+.tab-fade-enter-active,
+.tab-fade-leave-active {
+	transition: all 0.3s ease;
+}
+
+.tab-fade-enter-from {
+	opacity: 0;
+	transform: translateY(10px);
+}
+
+.tab-fade-leave-to {
+	opacity: 0;
+	transform: translateY(-10px);
+}
