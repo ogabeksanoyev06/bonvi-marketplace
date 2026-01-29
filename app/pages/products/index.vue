@@ -8,7 +8,7 @@
 			</div>
 		</div>
 
-		<div class="container bg-white rounded-[40px] p-10">
+		<div class="container bg-white rounded-[40px] sm:p-10">
 			<div class="grid lg:grid-cols-12 gap-8">
 				<div class="sticky h-[calc(100vh-124px)] top-28 lg:col-span-3 hidden lg:block">
 					<div class="h-full overflow-y-auto rounded-2xl scrollbar-hide">
@@ -17,7 +17,7 @@
 				</div>
 				<div class="lg:col-span-9">
 					<transition name="fade" mode="out-in">
-						<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+						<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
 							<template v-if="isPending">
 								<CardProductLoading v-for="key in 8" :key="key" />
 							</template>
@@ -33,6 +33,7 @@
 									:discountPercent="item.discountPercent"
 									:brand="item.brand"
 									image-bg="blue"
+									imageClasses="max-sm:!size-[151px]"
 								/>
 							</template>
 						</div>

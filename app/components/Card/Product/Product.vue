@@ -3,10 +3,10 @@
 		<div class="mb-4 relative rounded-[20px] overflow-hidden sm:group-hover:bg-gray shrink-0" :class="imageBg === 'white' ? 'bg-white' : 'bg-gray'">
 			<Swiper v-bind="settings" @swiper="onSwiper" @slideChange="onSlideChange">
 				<SwiperSlide v-for="(image, key) in images" :key="key">
-					<UIImage :src="image" image-class="!size-[221px] aspect-square !object-contain" class="flex justify-center pb-7 pt-4" />
+					<UIImage :src="image" :image-class="`size-[221px] aspect-square !object-contain ${imageClasses || ''}`" class="flex justify-center pb-5 sm:pb-7 pt-4" />
 				</SwiperSlide>
 			</Swiper>
-			<div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex justify-center gap-2 z-10 w-full">
+			<div class="absolute bottom-3 left-1/2 px-3 -translate-x-1/2 flex justify-center gap-2 z-10 w-full">
 				<div
 					v-for="(image, key) in images"
 					:key="key"
@@ -25,14 +25,14 @@
 			</div>
 		</div>
 		<div class="flex flex-col flex-1 justify-between gap-4">
-			<div class="flex flex-col gap-1 px-3 group-hover:px-0 transition-300">
+			<NuxtLinkLocale to="/products/1" class="flex flex-col gap-1 px-3 group-hover:px-0 transition-300">
 				<h3 class="text-lg sm:text-2xl !leading-130 font-[900] line-clamp-1">{{ title }}</h3>
 				<p class="text-sm leading-130 text-ellipsis line-clamp-2">{{ description }}</p>
 				<div class="">
 					<span class="text-base sm:text-xl font-bold leading-130">{{ formatMoneyDecimal(originalPrice) }} <span class="font-normal">UZS</span></span>
 					<span class="text-sm sm:text-base !leading-130 line-through ml-2 opacity-60">{{ formatMoneyDecimal(discountedPrice) }} UZS</span>
 				</div>
-			</div>
+			</NuxtLinkLocale>
 			<UIButton class="w-full mt-auto !bg-[#0083FF14] !text-blue !font-medium">
 				Savatga qo‘shish
 				<img src="/images/shopping-bag.svg" alt="" />
@@ -57,6 +57,7 @@ const props = withDefaults(
 		discountPercent: string
 		brand: string
 		imageBg?: 'white' | 'blue'
+		imageClasses?: string
 	}>(),
 	{
 		imageBg: 'blue'
