@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<MainHeroBanner />
 		<SectionTopProducts />
 		<MainAbout />
 		<SectionProducts />

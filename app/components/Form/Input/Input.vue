@@ -20,8 +20,12 @@
 			:max="max"
 			:min="min"
 			:autocomplete="autocomplete"
-			class="w-full h-full py-3 text-sm caret-blue font-medium bg-transparent outline-none text-black leading-130 placeholder:text-[#919392]"
-			:class="inputClass"
+			:class="[
+				'w-full h-full py-3 text-sm caret-blue font-medium bg-transparent outline-none text-black leading-130 placeholder:text-[#919392]',
+				inputClass,
+				!$slots.prefix && 'pl-3',
+				!$slots.suffix && 'pr-3'
+			]"
 			@keyup.enter="emit('enter', $event)"
 			@blur="emit('blur', $event)"
 			@focusout="emit('focusout', $event)"

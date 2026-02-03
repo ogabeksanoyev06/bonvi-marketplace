@@ -11,25 +11,30 @@
 					v-if="value"
 					:class="[
 						'bg-white w-full overflow-y-auto relative',
-						props.variant === 'mobile' ? 'rounded-t-[32px] max-h-[calc(100vh-100px)]' : 'max-h-screen lg:max-w-[480px] rounded-[32px]',
+						props.variant === 'mobile' ? 'rounded-t-[32px] max-h-[calc(100vh-100px)]' : 'max-h-[calc(100vh-50px)] lg:max-w-[480px] rounded-[32px]',
 						bodyClass,
 						{ animated: animationIn }
 					]"
 				>
 					<!-- HEADER -->
-					<div v-if="!noHeader" class="flex items-center border-b border-gray px-6 pt-5 pb-3" :class="headerStyle">
-						<slot name="header">
-							<h3 class="w-full text-base md:text-lg font-bold" :class="titleStyle">
-								{{ title }}
-							</h3>
-							<button class="w-8 h-8 bg-[#EDF2F7] rounded-full flex-center active:scale-95" @click="value = false">
-								<span class="icon-x-mark text-xl" />
-							</button>
-						</slot>
+					<div v-if="!noHeader" class="flex items-center border-b border-gray px-6 pt-5 pb-3 shrink-0" :class="headerStyle">
+						<!-- Chap qism: title slot -->
+						<div class="flex-1">
+							<slot name="header-title">
+								<h3 class="w-full text-base md:text-lg font-bold font-adero-trial" :class="titleStyle">
+									{{ title }}
+								</h3>
+							</slot>
+						</div>
+
+						<!-- Close button doim ko‘rinadi -->
+						<button class="w-8 h-8 bg-[#EDF2F7] rounded-full flex-center active:scale-95 transition-300 shrink-0" @click="value = false">
+							<span class="icon-x-mark text-xl" />
+						</button>
 					</div>
 
 					<!-- CLOSE ICON (NO HEADER) -->
-					<button v-if="noHeader && hasCloseIcon" class="absolute top-4 right-4 active:scale-95" @click="value = false">
+					<button v-if="noHeader && hasCloseIcon" class="absolute top-4 right-4 active:scale-95 transition-300" @click="value = false">
 						<span class="icon-x-mark text-2xl" />
 					</button>
 

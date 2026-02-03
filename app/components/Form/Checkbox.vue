@@ -1,6 +1,6 @@
 <template>
 	<label
-		class="group inline-flex items-center relative select-none"
+		class="group inline-flex items-center gap-2 relative select-none"
 		:class="disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'"
 		@click="handleClick"
 		@keydown.space.prevent="handleClick"

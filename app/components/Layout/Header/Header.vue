@@ -27,7 +27,7 @@
 				<div class="flex items-center gap-3">
 					<LayoutHeaderLangSwitcher class="lg:flex hidden" />
 					<div class="w-0.5 h-[30px] rounded-full bg-gray shrink-0 hidden lg:block" />
-					<LayoutHeaderSearch class="!hidden lg:flex" />
+					<LayoutHeaderSearch class="hidden lg:flex" />
 					<NuxtLinkLocale to="/favorites" class="relative hidden lg:flex-center size-9 bg-[#F6E03929] rounded-full p-1">
 						<img src="/images/header/favourite.svg" alt="icon favorites" />
 					</NuxtLinkLocale>

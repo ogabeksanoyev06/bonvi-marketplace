@@ -6,6 +6,7 @@
 				<span class="text-[#999EA1] text-xs font-medium">{{ time }}</span>
 			</div>
 		</div>
+
 		<button v-else class="inline-flex items-center group gap-1.5" @click="$emit('resend')">
 			Kodni qayta yuborish
 			<div class="size-6 flex-center bg-blue rounded-lg">

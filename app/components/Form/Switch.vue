@@ -1,6 +1,10 @@
 <template>
-	<div class="flex items-center justify-between p-3 bg-white rounded-2xl cursor-pointer" @click="modelValue = !modelValue">
-		<span class="text-xs font-medium" v-if="label">{{ label }}</span>
+	<div class="flex items-center justify-between p-3 bg-white rounded-2xl cursor-pointer" :class="mainClass" @click="modelValue = !modelValue">
+		<div class="text-xs font-medium" :class="labelClass">
+			<slot name="label">
+				<span v-if="label">{{ label }}</span>
+			</slot>
+		</div>
 		<label
 			class="transition select-none duration-200 ease-in-out inline-flex items-center w-12 h-7 relative overflow-hidden rounded-[48px] cursor-pointer p-0.5 shrink-0"
 			:class="modelValue ? 'bg-blue' : 'bg-gray'"
@@ -17,6 +21,8 @@
 <script setup lang="ts">
 interface Props {
 	label?: string
+	labelClass?: string | string[]
+	mainClass?: string | string[]
 }
 
 defineProps<Props>()

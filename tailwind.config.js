@@ -17,7 +17,7 @@ export default {
 			container: {
 				center: true,
 				padding: {
-					DEFAULT: '8px',
+					DEFAULT: '16px',
 					sm: '20px'
 				},
 				screens: {
@@ -28,6 +28,9 @@ export default {
 				blue: {
 					DEFAULT: '#0083FF',
 					light: '#F3F6F8'
+				},
+				green: {
+					DEFAULT: '#00BF53'
 				},
 				gray: {
 					DEFAULT: '#E9EEF1',

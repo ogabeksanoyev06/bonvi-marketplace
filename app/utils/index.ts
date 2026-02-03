@@ -32,3 +32,38 @@ export const moneyMask = () => ({
 export const removeSpaces = (text: string) => {
 	return text?.replace(/\s/g, '')
 }
+
+export function maskCardNumber(card: string) {
+	if (!card) return ''
+
+	const cleaned = card.replace(/\D/g, '')
+
+	if (cleaned.length < 16) {
+		return cleaned.replace(/(\d{4})(?=\d)/g, '$1 ')
+	}
+
+	const first = cleaned.slice(0, 4)
+	const last = cleaned.slice(-4)
+
+	return `${first} **** **** ${last}`
+}
+
+export const maskPhone = (value: string) => {
+	if (!value) return ''
+
+	// faqat raqamlarni oladi
+	const digits = value.replace(/\D/g, '')
+
+	// +998 bilan boshlanishini ta'minlaydi
+	const formatted =
+		'+998 ' +
+		(digits[3] ?? '') +
+		(digits[4] ? digits[4].replace(/\d/g, '**') : '') +
+		(digits[5] ? digits[5].replace(/\d/g, '**') : '') +
+		(digits[6] ? digits[6].replace(/\d/g, '*') : '') +
+		(digits[7] ? digits[7].replace(/\d/g, '*') : '') +
+		(digits[8] ? digits[8].replace(/\d/g, '*') : '') +
+		(digits[9] ?? '')
+
+	return formatted
+}

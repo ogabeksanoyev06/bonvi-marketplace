@@ -2,11 +2,11 @@
 	<div class="w-full">
 		<div
 			v-if="variant === 'button'"
-			class="relative grid gap-1 bg-gray-1 p-0.5 rounded-full overflow-x-auto scrollbar-hide"
+			class="relative grid gap-1 bg-blue-light p-[3px] rounded-full overflow-x-auto scrollbar-hide"
 			:style="{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }"
 		>
 			<div
-				class="absolute top-0.5 bottom-0.5 bg-white rounded-full shadow-sm transition-all duration-300 ease-in-out"
+				class="absolute top-0.5 bottom-0.5 bg-white rounded-full shadow-[0_5px_12px_0_rgba(0,0,0,0.12)] transition-all duration-300 ease-in-out"
 				:style="{
 					width: `calc(${100 / tabs.length}% - 4px)`,
 					left: `calc(${activeTab * (100 / tabs.length)}% + 2px)`
@@ -16,8 +16,8 @@
 				v-for="(tab, index) in tabs"
 				:key="index"
 				:class="[
-					'relative z-1 py-2 px-4 text-sm font-semibold leading-130 transition-all duration-300 whitespace-nowrap flex-shrink-0',
-					activeTab === index ? 'text-[#020202]' : 'text-[#676767]'
+					'relative z-1 py-2.5 px-[14px] text-dark-2 text-sm leading-130 transition-all duration-300 whitespace-nowrap flex-shrink-0',
+					activeTab === index ? 'font-bold' : 'font-medium'
 				]"
 				@click="selectTab(index)"
 			>

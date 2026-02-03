@@ -1,7 +1,7 @@
 <template>
 	<label
 		class="transition-300 flex items-center justify-between relative select-none w-full"
-		:class="[disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer group', { 'py-3 pl-5': border }]"
+		:class="[mainStyles, isChecked ? mainActiveClass : '', disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer group', { 'py-3 pl-5': border }]"
 		:style="{ minHeight: computedSize, '--btn-size': computedBtnSize }"
 	>
 		<!-- Label slot / default -->
@@ -29,7 +29,7 @@
 <script setup lang="ts">
 interface Props {
 	value?: string | number | boolean
-	label: string | number
+	label?: string | number
 	name?: string
 	disabled?: boolean
 	size?: number
@@ -39,6 +39,8 @@ interface Props {
 	border?: boolean
 	labelActiveClass?: string
 	error?: boolean
+	mainStyles?: string
+	mainActiveClass?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {

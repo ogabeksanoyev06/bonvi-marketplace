@@ -17,7 +17,7 @@
 			<div class="relative lg:max-w-[calc(100%-120px)] w-full">
 				<Swiper v-bind="settings" :thumbs="{ swiper: thumbsSwiper }" @slideChange="onSlideChange" @swiper="setMainSwiper" class="h-full w-full rounded-[32px]">
 					<SwiperSlide v-for="key in 10" :key="key" class="bg-white !flex !items-center !justify-center !h-full pt-6 sm:py-16 px-2 rounded-[32px]">
-						<img src="/images/image.png" alt="" class="h-[304px] sm:w-[355px] sm:aspect-[355/354] object-contain" />
+						<img src="/images/image.png" alt="" class="sm:w-[355px] sm:aspect-[355/354] object-contain" />
 					</SwiperSlide>
 				</Swiper>
 
@@ -109,7 +109,7 @@ const settings = {
 
 const thumbsSettings = {
 	spaceBetween: 12,
-	slidesPerView: 4,
+	slidesPerView: 3,
 	modules: [Thumbs],
 	direction: 'vertical'
 }

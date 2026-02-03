@@ -3,14 +3,17 @@
 		<div class="mb-4 relative rounded-[20px] overflow-hidden sm:group-hover:bg-gray shrink-0" :class="imageBg === 'white' ? 'bg-white' : 'bg-gray'">
 			<Swiper v-bind="settings" @swiper="onSwiper" @slideChange="onSlideChange">
 				<SwiperSlide v-for="(image, key) in images" :key="key">
-					<UIImage :src="image" :image-class="`size-[221px] aspect-square !object-contain ${imageClasses || ''}`" class="flex justify-center pb-5 sm:pb-7 pt-4" />
+					<UIImage :src="image" :image-class="`!w-[221px] aspect-square !object-contain ${imageClasses || ''}`" class="flex justify-center pb-5 sm:pb-7 pt-4" />
 				</SwiperSlide>
 			</Swiper>
-			<div class="absolute bottom-3 left-1/2 px-3 -translate-x-1/2 flex justify-center gap-2 z-10 w-full">
+			<div class="md:flex absolute left-0 top-0 w-full h-full z-1 hidden">
+				<div v-for="(image, key) in images" :key="key" class="hover-blocks h-full flex-1 cursor-pointer" @mouseenter="goToSlide(key)" />
+			</div>
+			<div class="absolute bottom-3 left-1/2 px-3 -translate-x-1/2 flex justify-center gap-2 z-10 w-full h-[3px]">
 				<div
 					v-for="(image, key) in images"
 					:key="key"
-					class="max-w-16 w-full h-[3px] rounded-full cursor-pointer"
+					class="w-full h-full rounded-full cursor-pointer"
 					:class="activeIndex === key ? 'bg-dark' : 'bg-gray-1'"
 					@click="goToSlide(key)"
 				/>
@@ -70,11 +73,14 @@ const activeIndex = ref(0)
 const settings = {
 	modules: [Autoplay],
 	slidesPerView: 1,
-	spaceBetween: 24,
+	spaceBetween: 0,
 	loop: true,
+	speed: 650,
+	effect: 'slide',
 	autoplay: {
-		delay: 3000,
-		disableOnInteraction: false
+		delay: 2600,
+		disableOnInteraction: false,
+		pauseOnMouseEnter: true
 	}
 }
 

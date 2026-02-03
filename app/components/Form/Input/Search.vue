@@ -11,7 +11,11 @@ const clear = () => {
 			<i class="icon-search text-[#7C7C7C] text-2xl leading-6 pr-2" />
 		</template>
 		<template #suffix>
-			<button class="icon-x-mark text-lg scale-0 opacity-0 hover:text-red transition-all duration-300" :class="{ '!scale-100 !opacity-100': search?.length }" @click="clear" />
+			<button
+				class="icon-x-mark text-lg scale-0 opacity-0 hover:text-red transition-all duration-300 cursor-pointer"
+				:class="{ '!scale-100 !opacity-100': search?.length }"
+				@click="clear"
+			/>
 		</template>
 	</FormInput>
 </template>
