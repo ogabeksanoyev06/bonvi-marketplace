@@ -1,5 +1,5 @@
 <template>
-	<section class="container py-8 md:py-10">
+	<section class="container">
 		<div class="space-y-8 bg-white rounded-[40px] p-5 md:p-8 overflow-hidden">
 			<div class="flex-center-between">
 				<div class="flex-y-center gap-1">

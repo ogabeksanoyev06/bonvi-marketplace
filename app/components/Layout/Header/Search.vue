@@ -1,5 +1,5 @@
 <template>
-	<div class="flex-center size-9 bg-[#3BADF90F] rounded-full p-1 cursor-pointer hover:bg-[#3BADF920] transition-colors" @click="openSearch">
+	<div class="hidden lg:flex-center size-9 bg-[#3BADF90F] rounded-full p-1 cursor-pointer hover:bg-[#3BADF920] transition-colors" @click="openSearch">
 		<img src="/images/header/search.svg" alt="icon search" />
 	</div>
 
@@ -36,7 +36,11 @@
 						class="w-full bg-white outline-none pl-5 pr-14 h-[52px] focus:ring-[3px] focus:ring-white/20 rounded-[20px] transition-all"
 						@input="handleSearch"
 					/>
-					<button class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#EDF2F7] rounded-full flex-center active:scale-95 transition-300 shrink-0" @click="searchQuery = ''">
+					<button
+						class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#EDF2F7] rounded-full flex-center active:scale-95 transition-300 shrink-0"
+						:class="searchQuery ? 'scale-100 opacity-100' : 'scale-0 opacity-0'"
+						@click="searchQuery = ''"
+					>
 						<span class="icon-x-mark text-xl" />
 					</button>
 				</div>
@@ -50,21 +54,41 @@
 					leave-from-class="opacity-100 translate-y-0 scale-100"
 					leave-to-class="opacity-0 translate-y-2 scale-95"
 				>
-					<div v-if="searchQuery" class="bg-white rounded-[20px] min-h-[200px] max-h-[calc(90vh-85.5px)] p-6 overflow-y-auto select-none scrollbar-none shadow-xl">
-						<!-- Loading State -->
-						<div v-if="isLoading" class="text-center py-10">
-							<div class="inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-							<p class="mt-4 text-gray-500">Qidirilmoqda...</p>
-						</div>
-
-						<!-- No Results -->
-						<div v-else class="text-center py-10 text-gray-500">
-							<svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-							</svg>
-							<p class="text-lg font-medium">Hech narsa topilmadi</p>
-							<p class="text-sm mt-1">Boshqa kalit so'z bilan qidiring</p>
-						</div>
+					<div v-if="isSearchOpen" class="bg-white rounded-[20px] min-h-[200px] max-h-[calc(90vh-85.5px)] p-4 overflow-y-auto select-none scrollbar-none shadow-xl">
+						<transition name="fade" mode="out-in">
+							<ul v-if="searchQuery" class="bg-blue-light rounded-2xl px-3 flex flex-col">
+								<li class="flex items-center gap-2 pb-4 pt-4 border-b border-gray last:border-b-0 last:pb-3 first:pt-3 cursor-pointer" v-for="key in 5" :key>
+									<i class="icon-search text-black/40 text-2xl leading-6"></i>
+									<span class="text-base leading-130 font-medium font-adero-trial text-black">Tezyurar</span>
+								</li>
+							</ul>
+							<div v-else-if="!searchQuery" class="flex flex-col gap-6">
+								<div class="flex-y-center gap-1">
+									<img src="/images/scooter.svg" alt="fire-icon" class="size-10 md:block hidden" />
+									<h2 class="section-title">Tavsiya etamiz</h2>
+								</div>
+								<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+									<template v-if="isPending">
+										<CardProductLoading v-for="key in 8" :key="key" />
+									</template>
+									<template v-else>
+										<CardProduct
+											v-for="item in items"
+											:key="item.id"
+											:images="item.images"
+											:title="item.title"
+											:description="item.description"
+											:originalPrice="item.originalPrice"
+											:discountedPrice="item.discountedPrice"
+											:discountPercent="item.discountPercent"
+											:brand="item.brand"
+											image-bg="blue"
+											imageClasses="max-sm:!size-[151px]"
+										/>
+									</template>
+								</div>
+							</div>
+						</transition>
 					</div>
 				</Transition>
 			</div>
@@ -81,81 +105,135 @@ const searchInput = ref<HTMLInputElement | null>(null)
 const searchContainer = ref<HTMLElement | null>(null)
 const isLoading = ref(false)
 
-// Original overflow qiymatini saqlash
 const originalOverflow = ref('')
 
-// ESC handler
+const isPending = ref(false)
+
+const items = ref([
+	{
+		id: 1,
+		images: ['/images/bonvi-product.png', '/images/bonvi-product.png', '/images/bonvi-product.png', '/images/bonvi-product.png'],
+		title: 'Qariyalar uchun mapet',
+		description: '12V tizimlar uchun ishonchli quvvat manbai. Barqaror kuchlanish beradi, o‘rnatish oson va uzoq muddat xizmat qiladi.',
+		originalPrice: 2000000,
+		discountedPrice: 1200000,
+		discountPercent: '51%',
+		brand: 'bonvi'
+	},
+	{
+		id: 2,
+		images: ['/images/bonvi-product.png', '/images/bonvi-product.png'],
+		title: 'LED chiroq',
+		description: 'Yuqori sifatli LED chiroq, energiya tejamkor va uzoq xizmat qiladi.',
+		originalPrice: 500000,
+		discountedPrice: 350000,
+		discountPercent: '30%',
+		brand: 'bonvi'
+	},
+	{
+		id: 3,
+		images: ['/images/vikor-product.png', '/images/vikor-product.png'],
+		title: 'Avtomobil akkumulyatori',
+		description: '12V tizimlar uchun ideal, ishonchli va uzoq umrli akkumulyator.',
+		originalPrice: 1800000,
+		discountedPrice: 1500000,
+		discountPercent: '17%',
+		brand: 'vikor'
+	},
+	{
+		id: 4,
+		images: ['/images/dark-product.png', '/images/dark-product.png'],
+		title: 'Uy uchun Mapet',
+		description: 'Barqaror kuchlanish va oson o‘rnatish bilan uy tizimlari uchun qulay.',
+		originalPrice: 1200000,
+		discountedPrice: 900000,
+		discountPercent: '25%',
+		brand: 'dark'
+	},
+	{
+		id: 5,
+		images: ['/images/bonvi-product.png', '/images/bonvi-product.png'],
+		title: 'Mobil Powerbank',
+		description: 'Tez quvvatlanadi, uzun xizmat muddati bilan xavfsiz.',
+		originalPrice: 600000,
+		discountedPrice: 450000,
+		discountPercent: '25%',
+		brand: 'bonvi'
+	},
+	{
+		id: 6,
+		images: ['/images/vikor-product.png', '/images/vikor-product.png'],
+		title: 'LED lampochka',
+		description: 'Yorqin va kam energiya sarf qiluvchi lampochka.',
+		originalPrice: 200000,
+		discountedPrice: 150000,
+		discountPercent: '25%',
+		brand: 'vikor'
+	},
+	{
+		id: 7,
+		images: ['/images/dark-product.png', '/images/dark-product.png'],
+		title: 'Avtomobil chiroqlari',
+		description: 'Yuqori sifatli va uzoq xizmat qiluvchi avtomobil chiroqlari.',
+		originalPrice: 800000,
+		discountedPrice: 600000,
+		discountPercent: '25%',
+		brand: 'dark'
+	},
+	{
+		id: 8,
+		images: ['/images/bonvi-product.png', '/images/bonvi-product.png'],
+		title: 'Uy sharoitida Mapet',
+		description: 'Barqaror kuchlanish, oson o‘rnatish va uzoq xizmat muddati.',
+		originalPrice: 1000000,
+		discountedPrice: 750000,
+		discountPercent: '25%',
+		brand: 'bonvi'
+	}
+])
+
 const handleEscape = (e: KeyboardEvent) => {
 	if (e.key === 'Escape' && isSearchOpen.value) {
 		closeSearch()
 	}
 }
 
-// Search modal ochish
-const openSearch = () => {
+const openSearch = async () => {
 	isSearchOpen.value = true
-	// nextTick va focus ni olib tashladik
+	await nextTick()
+	searchInput.value?.focus()
+	isPending.value = true
+	setTimeout(() => {
+		isPending.value = false
+	}, 1200)
 }
 
-// Search modal yopish
 const closeSearch = () => {
 	isSearchOpen.value = false
 	searchQuery.value = ''
 	isLoading.value = false
 }
 
-// Search watch
-let searchTimeout: ReturnType<typeof setTimeout> | null = null
+const handleSearch = () => {}
 
-const handleSearch = () => {
-	if (searchQuery.value.length < 2) {
-		isLoading.value = false
-		return
-	}
-
-	// Debounce
-	if (searchTimeout) {
-		clearTimeout(searchTimeout)
-	}
-
-	isLoading.value = true
-
-	searchTimeout = setTimeout(() => {
-		// Bu yerda API so'rovini qo'shasiz
-		// const response = await fetch(`/api/search?q=${searchQuery.value}`)
-
-		// Hozircha faqat loading
-		setTimeout(() => {
-			isLoading.value = false
-		}, 500)
-	}, 300)
-}
-
-// Search modal ochilganda/yopilganda
 watch(
 	() => isSearchOpen.value,
 	(val) => {
 		if (val) {
-			// Modal ochildi
 			originalOverflow.value = document.body.style.overflow
 			document.body.style.overflow = 'hidden'
 			window.addEventListener('keydown', handleEscape)
 		} else {
-			// Modal yopildi
 			document.body.style.overflow = originalOverflow.value
 			window.removeEventListener('keydown', handleEscape)
 		}
 	}
 )
 
-// Component unmount bo'lganda cleanup
 onBeforeUnmount(() => {
 	window.removeEventListener('keydown', handleEscape)
 	if (isSearchOpen.value) {
 		document.body.style.overflow = originalOverflow.value
-	}
-	if (searchTimeout) {
-		clearTimeout(searchTimeout)
 	}
 })
 </script>

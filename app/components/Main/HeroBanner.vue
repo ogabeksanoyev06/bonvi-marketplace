@@ -1,10 +1,45 @@
 <template>
-	<div>
+	<div class="container pt-4 md:pt-10">
+		<div class="grid grid-cols-1 lg:grid-cols-[800px_1fr] gap-4 lg:gap-6">
+			<div class="shrink-0">
+				<Swiper @init="onInit" @slideChange="onSlideChange" v-bind="settings" class="lg:h-[454px] rounded-3xl md:rounded-[40px] relative">
+					<SwiperSlide v-for="item in 8" :key="item">
+						<UIImage src="images/Special-Offer-Card.png" class="w-full h-full object-cover rounded-3xl md:rounded-[40px]" />
+					</SwiperSlide>
+
+					<div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-[3px] z-20">
+						<div
+							v-for="(s, i) in totalSlides"
+							:key="i"
+							class="relative overflow-hidden rounded-full"
+							:class="i === activeIndex ? 'w-5 h-[4px] md:h-1.5 md:w-10 bg-white/40' : 'w-[3px] h-[3px] md:w-[6px] md:h-[6px] bg-white/40 rounded-full'"
+						>
+							<!-- PROGRESS: active bullet only -->
+							<div v-if="i === activeIndex" class="absolute left-0 top-0 h-full bg-white transition-all duration-75" :style="{ width: progress + '%' }"></div>
+						</div>
+					</div>
+				</Swiper>
+			</div>
+			<div class="flex flex-col gap-5 md:gap-7 p-5 md:p-10 rounded-3xl md:rounded-[40px] overflow-hidden relative z-10">
+				<img src="/images/hero-image.webp" alt="" class="absolute -bottom-8 md:bottom-0 right-0 max-w-[225px] md:max-w-[450px] object-contain z-[-1]" />
+				<img src="/images/hero-background-patterns.jpg" alt="hero-background-patterns" class="absolute inset-0 max-sm:object-top w-full h-full object-cover z-[-2]" />
+				<div class="flex flex-col gap-2 max-w-[383px]">
+					<h2 class="text-xl md:text-[40px] font-bold font-adero-trial text-white !leading-130">Premium</h2>
+					<p class="text-xs md:text-xl !leading-130 text-white">Barcha qulayliklar siz uchun premium obunani xarid qiling va eng yaxshi darajaga chiqing</p>
+				</div>
+				<UIButton @click="isOpen = true" text="Obunani xarid qilish" variant="secondary" class="!bg-white w-fit px-4 font-adero-trial max-sm:!h-8 !text-xs sm:!text-sm" />
+			</div>
+		</div>
 		<ModalTestQuestion v-model="isOpen" :questions="questions" />
 	</div>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/autoplay'
+
 const isOpen = ref(false)
 
 const questions = [
@@ -99,4 +134,39 @@ const questions = [
 		]
 	}
 ]
+
+const settings = {
+	modules: [Autoplay],
+	spaceBetween: 16,
+	slidesPerView: 1,
+	loop: true,
+	autoplay: {
+		delay: 3000,
+		disableOnInteraction: false
+	}
+}
+
+const activeIndex = ref(0)
+const totalSlides = ref(0)
+const progress = ref(0)
+
+let interval = null
+
+const startProgress = () => {
+	progress.value = 0
+	if (interval) clearInterval(interval)
+	interval = setInterval(() => {
+		progress.value += 1
+		if (progress.value >= 100) clearInterval(interval)
+	}, 30)
+}
+const onInit = (swiper) => {
+	totalSlides.value = swiper.slides.length
+	activeIndex.value = swiper.realIndex
+	startProgress()
+}
+const onSlideChange = (swiper) => {
+	activeIndex.value = swiper.realIndex
+	startProgress()
+}
 </script>

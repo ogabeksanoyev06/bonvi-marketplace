@@ -1,5 +1,5 @@
 <template>
-	<section class="md:container md:py-10">
+	<section class="md:container">
 		<div class="md:space-y-8 bg-[#0083FF14] rounded-[40px] px-4 py-5 md:px-8 md:py-8 overflow-hidden">
 			<div class="flex-y-center gap-1 max-md:mb-5">
 				<img src="/images/fire-icon.svg" alt="fire-icon" class="size-10 md:block hidden" />

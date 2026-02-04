@@ -1,5 +1,5 @@
 <template>
-	<section class="bg-blue-light py-6 md:py-10">
+	<section class="bg-blue-light">
 		<div class="container">
 			<h2 class="section-title max-md:!text-xl mb-6 text-center">Tez-tez so‘raladigan savollar</h2>
 			<div class="flex flex-col gap-3 bg-black rounded-[40px] p-3 shadow-faq">

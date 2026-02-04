@@ -1,9 +1,9 @@
 <template>
 	<UIDropdown :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
 		<template #head="{ show }">
-			<div class="flex items-center h-9 gap-1 bg-[#0083FF14] py-1.5 px-2 rounded-full cursor-pointer transition-300" :class="[show ? 'bg-dark' : '']">
+			<div class="flex items-center h-9 gap-1 bg-[#0083FF14] py-1.5 px-1.5 sm:px-2 rounded-full cursor-pointer transition-300" :class="[show ? 'bg-dark' : '']">
 				<i class="icon-location-pin text-blue flex-center text-xl leading-5 aspect-square transition-300" :class="[show ? 'text-white' : '']" />
-				<span class="text-base leading-130 font-bold text-blue transition-300 xl:flex hidden" :class="[show ? 'text-white' : '']">
+				<span class="text-sm sm:text-base leading-130 font-bold text-blue transition-300" :class="[show ? 'text-white' : '']">
 					{{ currentRegion?.name || 'Toshkent shahri' }}
 				</span>
 				<i class="icon-chevron text-blue flex-center text-xl leading-5 aspect-square transition-300" :class="[show ? '!rotate-180 text-white' : '']" />

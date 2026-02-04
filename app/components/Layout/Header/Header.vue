@@ -4,7 +4,7 @@
 			class="flex items-center p-4 h-[60px] border-b border-[#E6E6E6] lg:border lg:border-transparent lg:p-5 lg:h-20 lg:rounded-full bg-white/95 transition-300 w-full"
 			:class="[y > 100 ? 'lg:backdrop-blur-md lg:!border-gray lg:shadow-header' : '']"
 		>
-			<UIButton text="" icon="icon-menu text-white text-2xl leading-6" class="!size-8 !flex-center lg:hidden" />
+			<UIButton text="" icon="icon-menu text-white text-2xl leading-6" class="!size-8 !flex-center lg:hidden" @click="isMenuOpen = true" />
 			<NuxtLinkLocale to="/" class="hidden lg:flex items-center shrink-0 mr-4 xl:mr-11">
 				<img class="h-8 xl:h-10" src="/images/logo.svg" alt="bonvi logo" />
 			</NuxtLinkLocale>
@@ -27,7 +27,7 @@
 				<div class="flex items-center gap-3">
 					<LayoutHeaderLangSwitcher class="lg:flex hidden" />
 					<div class="w-0.5 h-[30px] rounded-full bg-gray shrink-0 hidden lg:block" />
-					<LayoutHeaderSearch class="hidden lg:flex" />
+					<LayoutHeaderSearch />
 					<NuxtLinkLocale to="/favorites" class="relative hidden lg:flex-center size-9 bg-[#F6E03929] rounded-full p-1">
 						<img src="/images/header/favourite.svg" alt="icon favorites" />
 					</NuxtLinkLocale>
@@ -40,6 +40,7 @@
 			</div>
 		</div>
 		<ModalAuth v-model="isOpen" />
+		<LayoutHeaderMobileMenu v-model="isMenuOpen" />
 	</header>
 </template>
 
@@ -52,8 +53,7 @@ const { t } = useI18n()
 const { width } = useWindowSize()
 
 const isOpen = ref(false)
-
-const isMobile = computed(() => width.value < 1024)
+const isMenuOpen = ref(false)
 
 const navigationLinks = computed(() => [
 	{
@@ -77,6 +77,10 @@ const navigationLinks = computed(() => [
 		route: '/blog'
 	}
 ])
+
+watch(isMenuOpen, (val) => {
+	document.body.style.overflow = val ? 'hidden' : 'auto'
+})
 </script>
 
 <style scoped>

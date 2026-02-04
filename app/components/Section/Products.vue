@@ -1,5 +1,5 @@
 <template>
-	<section class="container px-0 md:py-10">
+	<section class="container px-0">
 		<div class="flex flex-col gap-8 bg-white rounded-[40px] px-4 py-5 md:px-8 md:py-8">
 			<div class="flex-center-between">
 				<div class="flex-y-center gap-1">

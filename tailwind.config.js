@@ -18,7 +18,7 @@ export default {
 				center: true,
 				padding: {
 					DEFAULT: '16px',
-					sm: '20px'
+					sm: '40px'
 				},
 				screens: {
 					sm: '1440px'
