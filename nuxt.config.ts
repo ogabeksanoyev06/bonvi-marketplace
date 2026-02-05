@@ -4,6 +4,7 @@ export default defineNuxtConfig({
 	devtools: { enabled: true },
 	css: ['@/assets/css/main.css', '@/assets/icomoon/style.css'],
 	app: {
+		pageTransition: { name: 'page-change', mode: 'out-in' },
 		head: {
 			link: [
 				{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -21,7 +22,8 @@ export default defineNuxtConfig({
 				autoImports: ['defineStore', ['defineStore', 'definePiniaStore']]
 			}
 		],
-		'@nuxt/eslint'
+		'@nuxt/eslint',
+		'@vueuse/nuxt'
 	],
 	i18n: {
 		locales: [

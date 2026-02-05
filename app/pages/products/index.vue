@@ -17,7 +17,7 @@
 				</div>
 				<div class="lg:col-span-9">
 					<transition name="fade" mode="out-in">
-						<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+						<div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
 							<template v-if="isPending">
 								<CardProductLoading v-for="key in 8" :key="key" />
 							</template>

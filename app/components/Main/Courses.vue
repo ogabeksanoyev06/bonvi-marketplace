@@ -32,16 +32,16 @@
 				<div class="lg:col-span-3 flex flex-col gap-4">
 					<h3 class="text-xl sm:text-2xl !leading-140 font-bold">Dokumentlar</h3>
 					<div class="flex flex-col gap-3">
-						<div v-for="value in 7" class="bg-gray flex items-center justify-between px-4 py-3 rounded-[20px]">
+						<div v-for="key in 7" :key class="bg-gray flex items-center justify-between px-4 py-3 rounded-[20px] cursor-pointer transition-300 group">
 							<div class="flex-y-center gap-2.5">
 								<img src="/images/document.svg" alt="document icon" class="size-10" />
 								<div>
-									<p class="text-lg font-bold leading-140 line-clamp-1">Darslik materiali.pdf</p>
+									<p class="text-lg font-bold leading-140 line-clamp-1 transition-300 group-hover:text-blue">Darslik materiali.pdf</p>
 									<p class="text-sm leading-140">25 MB</p>
 								</div>
 							</div>
 							<div class="bg-black rounded-full size-10 flex-center p-2">
-								<i class="icon-download text-white text-2xl leading-6"></i>
+								<i class="icon-download text-white text-2xl leading-6 !transition-300 group-hover:animate-bounce"></i>
 							</div>
 						</div>
 						<UIButton class="lg:w-fit w-full" text="Barchasi" icon="icon-chevron -rotate-90 text-2xl leading-6" />

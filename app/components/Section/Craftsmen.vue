@@ -6,7 +6,9 @@
 					<img src="/images/fire-icon.svg" alt="fire-icon" class="size-10 md:block hidden" />
 					<h2 class="section-title">Mohir ustalarimiz</h2>
 				</div>
-				<UIButton class="md:flex hidden" text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
+				<NuxtLinkLocale to="/craftsmen">
+					<UIButton class="md:flex hidden" text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
+				</NuxtLinkLocale>
 			</div>
 
 			<transition name="fade" mode="out-in">

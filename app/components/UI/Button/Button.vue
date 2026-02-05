@@ -1,7 +1,7 @@
 <template>
 	<button
 		:class="[variants[variant], sizes[size], { '!pointer-events-none': loading }]"
-		class="relative inline-flex items-center justify-center h-10 gap-2 whitespace-nowrap text-base leading-140 font-bold transition-300 rounded-full active:scale-95 group/button disabled:opacity-50 disabled:pointer-events-none group"
+		class="relative inline-flex items-center justify-center h-10 gap-2 whitespace-nowrap text-sm sm:text-base !leading-140 font-bold transition-300 rounded-full active:scale-95 group/button disabled:opacity-50 disabled:pointer-events-none group"
 		v-bind="{ disabled, type }"
 	>
 		<span

@@ -1,9 +1,9 @@
 <template>
-	<div class="flex flex-col items-start gap-3 border-[1.5px] border-gray py-3 rounded-xl">
+	<div class="flex flex-col items-start gap-3 border-[1.5px] border-gray py-3 rounded-xl transition-300 hover:shadow-card">
 		<div class="flex-center-between gap-4 px-3">
 			<div class="flex-y-center gap-1">
-				<img src="/images/user.png" alt="user" class="rounded-full size-10 sm:size-14 aspect-square animate-pulse" />
-				<h2 class="text-sm sm:text-lg font-bold !leading-130 line-clamp-2">
+				<img src="/images/user.png" alt="user" class="rounded-full size-10 sm:size-11 aspect-square" />
+				<h2 class="text-sm sm:text-base font-bold !leading-130 line-clamp-2">
 					{{ name }}
 				</h2>
 			</div>

@@ -9,7 +9,7 @@
 			</div>
 
 			<transition name="fade" mode="out-in">
-				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
 					<template v-if="isPending">
 						<CardProductLoading v-for="key in 4" :key="key" />
 					</template>
@@ -30,31 +30,6 @@
 				</div>
 			</transition>
 
-			<!-- <transition name="fade" mode="out-in">
-				<div class="md:hidden block">
-					<template v-if="isPending">
-						<div class="flex overflow-hidden gap-4 md:gap-5">
-							<CardProductLoading v-for="key in 8" :key="key" class="!w-[278px] shrink-0" />
-						</div>
-					</template>
-					<template v-else>
-						<Swiper v-bind="settings" class="!overflow-visible">
-							<SwiperSlide v-for="item in items" :key="item.id">
-								<CardProduct
-									:images="item.images"
-									:title="item.title"
-									:description="item.description"
-									:originalPrice="item.originalPrice"
-									:discountedPrice="item.discountedPrice"
-									:discountPercent="item.discountPercent"
-									:brand="item.brand"
-								/>
-							</SwiperSlide>
-						</Swiper>
-					</template>
-				</div>
-			</transition> -->
-
 			<NuxtLinkLocale to="/products" class="mx-auto flex justify-center mt-8">
 				<UIButton text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
 			</NuxtLinkLocale>
@@ -62,10 +37,6 @@
 	</section>
 </template>
 <script lang="ts" setup>
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Autoplay } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/autoplay'
 const isPending = ref(true)
 
 const items = ref([
@@ -111,33 +82,6 @@ const items = ref([
 	}
 ])
 
-const settings = {
-	modules: [Autoplay],
-	spaceBetween: 24,
-	slidesPerView: 4,
-	loop: true,
-	autoplay: {
-		delay: 3000,
-		disableOnInteraction: false
-	},
-
-	breakpoints: {
-		320: {
-			slidesPerView: 1.1,
-			spaceBetween: 8
-		},
-		640: {
-			slidesPerView: 2
-		},
-		768: {
-			slidesPerView: 3
-		},
-		1024: {
-			slidesPerView: 4
-		}
-	},
-	centerSlides: true
-}
 onMounted(() => {
 	setTimeout(() => {
 		isPending.value = false

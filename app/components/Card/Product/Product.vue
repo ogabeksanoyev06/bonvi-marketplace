@@ -1,6 +1,11 @@
 <template>
-	<div class="transition-300 h-full sm:hover:scale-105 sm:hover:shadow-card rounded-[32px] sm:hover:bg-white sm:hover:p-4 group flex flex-col">
-		<div class="mb-4 relative rounded-[20px] overflow-hidden sm:group-hover:bg-gray shrink-0" :class="imageBg === 'white' ? 'bg-white' : 'bg-gray'">
+	<div :class="['transition-300 h-full sm:hover:shadow-card rounded-[32px] bg-white p-4 group flex flex-col', mainClass]">
+		<div
+			class="mb-4 relative rounded-[20px] overflow-hidden sm:group-hover:bg-gray shrink-0"
+			:class="imageBg === 'white' ? 'bg-white' : '!bg-gray'"
+			@mouseenter="stopAutoplay"
+			@mouseleave="startAutoplay"
+		>
 			<Swiper v-bind="settings" @swiper="onSwiper" @slideChange="onSlideChange">
 				<SwiperSlide v-for="(image, key) in images" :key="key">
 					<UIImage :src="image" :image-class="`!w-[221px] aspect-square !object-contain ${imageClasses || ''}`" class="flex justify-center pb-5 sm:pb-7 pt-4" />
@@ -21,14 +26,20 @@
 			<img
 				:src="brand === 'dark' ? '/images/brand-logo/dark.png' : brand === 'bonvi' ? '/images/brand-logo/bonvi.svg' : '/images/brand-logo/vikor.svg'"
 				alt="brand logo"
-				class="absolute top-2.5 left-2.5 w-[75px] aspect-[75/21.21] animate-pulse"
+				class="absolute top-2.5 left-2.5 w-[75px] aspect-[75/21.21]"
 			/>
-			<div class="absolute top-3 right-3 size-9 flex-center bg-white rounded-full p-1.5 cursor-pointer z-5">
-				<i class="icon-saved text-2xl leading-6"></i>
+			<div class="absolute top-2 right-2 sm:top-3 sm:right-3 z-5">
+				<UIButtonSave class="!size-9" />
+			</div>
+			<div class="absolute bottom-0 right-0 z-5" v-if="discountedPrice">
+				<div class="relative">
+					<img src="/images/discount.svg" alt="discount" />
+					<span class="absolute top-[57px] left-[52px] -translate-y-1/2 text-xs leading-130 font-normal text-white">51%</span>
+				</div>
 			</div>
 		</div>
 		<div class="flex flex-col flex-1 justify-between gap-4">
-			<NuxtLinkLocale to="/products/1" class="flex flex-col gap-1 px-3 group-hover:px-0 transition-300">
+			<NuxtLinkLocale to="/products/1" class="flex flex-col gap-1 transition-300">
 				<h3 class="text-lg sm:text-2xl !leading-130 font-[900] line-clamp-1">{{ title }}</h3>
 				<p class="text-sm leading-130 text-ellipsis line-clamp-2">{{ description }}</p>
 				<div class="">
@@ -36,10 +47,7 @@
 					<span class="text-sm sm:text-base !leading-130 line-through ml-2 opacity-60">{{ formatMoneyDecimal(discountedPrice) }} UZS</span>
 				</div>
 			</NuxtLinkLocale>
-			<UIButton class="w-full mt-auto !bg-[#0083FF14] !text-blue !font-medium">
-				Savatga qo‘shish
-				<img src="/images/shopping-bag.svg" alt="" />
-			</UIButton>
+			<UIButtonAddToCart class="!mt-auto" />
 		</div>
 	</div>
 </template>
@@ -61,6 +69,7 @@ const props = withDefaults(
 		brand: string
 		imageBg?: 'white' | 'blue'
 		imageClasses?: string
+		mainClass?: string
 	}>(),
 	{
 		imageBg: 'blue'
@@ -94,6 +103,14 @@ function onSwiper(instance: any) {
 function onSlideChange() {
 	if (!swiper.value) return
 	activeIndex.value = swiper.value.realIndex
+}
+
+function stopAutoplay() {
+	if (swiper.value) swiper.value.autoplay.stop()
+}
+
+function startAutoplay() {
+	if (swiper.value) swiper.value.autoplay.start()
 }
 
 /* Pagination bosilganda */

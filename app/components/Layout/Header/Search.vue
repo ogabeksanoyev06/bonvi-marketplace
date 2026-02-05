@@ -25,7 +25,7 @@
 			leave-from-class="opacity-100 translate-y-0"
 			leave-to-class="opacity-0 -translate-y-4"
 		>
-			<div v-if="isSearchOpen" ref="searchContainer" class="fixed top-[30px] left-1/2 -translate-x-1/2 max-w-[1044px] flex flex-col gap-4 w-full z-[99] px-4" @click.stop>
+			<div v-if="isSearchOpen" ref="searchContainer" class="fixed top-[30px] left-1/2 -translate-x-1/2 max-w-[1044px] flex flex-col gap-4 w-full z-[99] px-2 sm:px-4" @click.stop>
 				<!-- Input -->
 				<div class="relative">
 					<input
@@ -54,7 +54,7 @@
 					leave-from-class="opacity-100 translate-y-0 scale-100"
 					leave-to-class="opacity-0 translate-y-2 scale-95"
 				>
-					<div v-if="isSearchOpen" class="bg-white rounded-[20px] min-h-[200px] max-h-[calc(90vh-85.5px)] p-4 overflow-y-auto select-none scrollbar-none shadow-xl">
+					<div v-if="isSearchOpen" class="bg-white rounded-[20px] min-h-[200px] max-h-[calc(90vh-85.5px)] p-2 py-4 sm:p-4 overflow-y-auto select-none scrollbar-none shadow-xl">
 						<transition name="fade" mode="out-in">
 							<ul v-if="searchQuery" class="bg-blue-light rounded-2xl px-3 flex flex-col">
 								<li class="flex items-center gap-2 pb-4 pt-4 border-b border-gray last:border-b-0 last:pb-3 first:pt-3 cursor-pointer" v-for="key in 5" :key>
@@ -67,7 +67,19 @@
 									<img src="/images/scooter.svg" alt="fire-icon" class="size-10 md:block hidden" />
 									<h2 class="section-title">Tavsiya etamiz</h2>
 								</div>
-								<div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+								<div class="md:hidden">
+									<transition name="fade" mode="out-in">
+										<template v-if="isPending">
+											<div class="flex overflow-hidden gap-3">
+												<CardProductLoading v-for="key in 8" :key="key" class="!w-[278px] shrink-0" />
+											</div>
+										</template>
+										<template v-else>
+											<SectionCarouselProducts :products="items" />
+										</template>
+									</transition>
+								</div>
+								<div class="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5">
 									<template v-if="isPending">
 										<CardProductLoading v-for="key in 8" :key="key" />
 									</template>
@@ -83,7 +95,6 @@
 											:discountPercent="item.discountPercent"
 											:brand="item.brand"
 											image-bg="blue"
-											imageClasses="max-sm:!size-[151px]"
 										/>
 									</template>
 								</div>

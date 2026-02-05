@@ -57,7 +57,7 @@
 				</div>
 			</div>
 			<div class="flex items-center gap-2">
-				<UIButtonAddToCart />
+				<UIButtonAddToCart class="max-w-[250px]" />
 				<UIButtonSave />
 				<UIButtonShare />
 			</div>

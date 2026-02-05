@@ -7,7 +7,7 @@
 			<h3 class="text-[28px] leading-130 font-bold">Sevimlilar</h3>
 		</div>
 		<div class="container bg-white rounded-[40px] p-10">
-			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
 				<template v-if="isPending">
 					<CardProductLoading v-for="key in 8" :key="key" />
 				</template>

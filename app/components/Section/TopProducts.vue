@@ -8,7 +8,7 @@
 
 			<transition name="fade" mode="out-in">
 				<template v-if="isPending">
-					<div class="flex overflow-hidden gap-4 md:gap-5">
+					<div class="flex overflow-hidden gap-3">
 						<CardProductLoading v-for="key in 8" :key="key" class="!w-[278px] shrink-0" />
 					</div>
 				</template>
@@ -23,7 +23,7 @@
 								:discountedPrice="item.discountedPrice"
 								:discountPercent="item.discountPercent"
 								:brand="item.brand"
-								imageBg="white"
+								imageBg="blue"
 							/>
 						</SwiperSlide>
 					</Swiper>
@@ -47,8 +47,8 @@ const isPending = ref(true)
 
 const settings = {
 	modules: [Autoplay],
-	spaceBetween: 24,
-	slidesPerView: 4,
+	spaceBetween: 12,
+	slidesPerView: 3.4,
 	loop: true,
 	autoplay: {
 		delay: 3000,
@@ -67,10 +67,9 @@ const settings = {
 			slidesPerView: 3
 		},
 		1024: {
-			slidesPerView: 4
+			slidesPerView: 3.4
 		}
-	},
-	centerSlides: true
+	}
 }
 
 const items = ref([

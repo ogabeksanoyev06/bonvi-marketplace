@@ -67,3 +67,7 @@ export const maskPhone = (value: string) => {
 
 	return formatted
 }
+
+export async function copyText(text: string) {
+	await navigator.clipboard.writeText(text)
+}

@@ -8,8 +8,21 @@
 				</div>
 			</div>
 
+			<div class="md:hidden">
+				<transition name="fade" mode="out-in">
+					<template v-if="isPending">
+						<div class="flex overflow-hidden gap-3">
+							<CardProductLoading v-for="key in 8" :key="key" class="!w-[278px] shrink-0" />
+						</div>
+					</template>
+					<template v-else>
+						<SectionCarouselProducts :products="items" />
+					</template>
+				</transition>
+			</div>
+
 			<transition name="fade" mode="out-in">
-				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+				<div class="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
 					<template v-if="isPending">
 						<CardProductLoading v-for="key in 8" :key="key" />
 					</template>
@@ -37,7 +50,11 @@
 	</section>
 </template>
 <script lang="ts" setup>
+import { useWindowSize } from '@vueuse/core'
+
 const isPending = ref(true)
+
+const isMobile = computed(() => useWindowSize().width.value < 768)
 
 const items = ref([
 	{

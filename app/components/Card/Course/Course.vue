@@ -1,5 +1,5 @@
 <template>
-	<NuxtLinkLocale to="/courses/1" class="flex flex-col gap-3 bg-gray p-3 rounded-[28px] group">
+	<NuxtLinkLocale to="/courses/1" class="flex flex-col gap-3 bg-gray p-3 rounded-[28px] group transition-300 hover:shadow-card">
 		<div class="relative overflow-hidden rounded-[28px] z-10">
 			<UIImage src="/images/background-patterns.webp" class="rounded-[28px] h-[204px]" />
 			<div class="absolute inset-0 bg-black/20 z-10"></div>
