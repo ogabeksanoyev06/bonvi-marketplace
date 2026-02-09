@@ -1,7 +1,7 @@
 <template>
 	<UIModal v-model="isOpen" title="Karta qo‘shish" bodyClass="!max-w-[480px]">
 		<Transition name="fade" mode="out-in">
-			<div v-if="true">
+			<div v-if="step === 1">
 				<div class="flex flex-col p-4 md:py-5 md:px-5 gap-6">
 					<div class="flex flex-col items-start gap-4">
 						<FormGroup label="Karta raqam" class="w-full">
@@ -31,14 +31,14 @@
 					</div>
 				</div>
 				<div class="px-4 pb-2.5 pt-3 md:px-6 md:py-5 w-full">
-					<UIButton variant="secondary" text="Qo‘shish" class="w-full h-[46px]" />
+					<UIButton variant="secondary" text="Qo‘shish" class="w-full h-[46px]" @click="step = 2" />
 				</div>
 				<p class="max-w-[342px] mx-auto w-full text-center text-xs leading-130 px-4 pb-3 md:pb-6">
 					Tugmani bosish orqali siz <a href="" class="text-blue">ommaviy oferta</a> shartlariga rozilik bildirasiz.
 				</p>
 			</div>
 
-			<div v-else>
+			<div v-else-if="step === 2">
 				<div class="flex flex-col items-center gap-4 w-full py-5">
 					<div class="size-[76px] flex-center border border-white/10 bg-[linear-gradient(49deg,_#4C00FF_14.7%,_#00AEFF_81.51%)] rounded-full p-[14px]">
 						<img src="/images/phone_call.svg" alt="" class="size-12 aspect-square" />
@@ -75,6 +75,8 @@ const form = useForm(
 )
 
 const timer = ref(true)
+
+const step = ref(1)
 
 const timeout = () => {
 	timer.value = false

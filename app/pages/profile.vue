@@ -1,8 +1,8 @@
 <template>
 	<div class="container">
-		<div class="grid md:grid-cols-[350px_minmax(0,1fr)] gap-6 pt-8">
+		<div :class="[showSidebar ? 'grid md:grid-cols-[350px_minmax(0,1fr)] gap-6 pt-8' : '']">
 			<!-- Sidebar -->
-			<div class="flex flex-col gap-5">
+			<div v-if="showSidebar" class="flex flex-col gap-5">
 				<!-- User info -->
 				<div class="flex flex-col items-center gap-3">
 					<div class="flex-center w-[100px] aspect-square rounded-full bg-white/10">
@@ -71,6 +71,7 @@
 						:key="item.to"
 						:to="item.to"
 						class="flex items-center justify-between px-5 py-4 border-b border-white/10 transition-300 last:border-b-0 hover:bg-white/5 hover:backdrop-blur-sm"
+						exact-active-class="!bg-white/5 !backdrop-blur-md"
 					>
 						<div class="flex-y-center gap-2 flex-1">
 							<span class="flex-center size-10 p-2 bg-white rounded-full">
@@ -86,29 +87,33 @@
 					</NuxtLinkLocale>
 				</nav>
 			</div>
-		</div>
 
-		<!-- Page content -->
-		<div class="w-full">
-			<transition name="profile-page-change" mode="out-in">
-				<div :key="$route.name">
-					<NuxtPage />
-				</div>
-			</transition>
+			<!-- Page content -->
+			<div class="w-full">
+				<transition name="profile-page-change" mode="out-in">
+					<div :key="$route.name">
+						<NuxtPage />
+					</div>
+				</transition>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
+const route = useRoute()
+
 const menu = [
+	{ label: 'Profil ma’lumotlar', to: '/profile', icon: 'icon-user-profile' },
 	{ label: 'Xabarnomalar', to: '/profile/notifications', icon: 'icon-bell' },
-	{ label: 'Profil ma’lumotlar', to: '/profile/info', icon: 'icon-user-profile' },
 	{ label: 'Buyurtmalar', to: '/profile/orders', icon: 'icon-order-profile' },
-	{ label: 'Referal', to: '/profile/referal', icon: 'icon-share' },
-	{ label: 'Kartalar', to: '/profile/cards', icon: 'icon-credit-card' }
+	{ label: 'Referal', to: '/profile/referral', icon: 'icon-share' },
+	{ label: 'Kartalar', to: '/profile/my-cards', icon: 'icon-credit-card' }
 ]
 
 const isOpenAcc = ref(false)
+
+const showSidebar = computed(() => route.meta?.sidebar !== false)
 
 function toggleAccordion() {
 	isOpenAcc.value = !isOpenAcc.value

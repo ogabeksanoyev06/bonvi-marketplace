@@ -2,14 +2,14 @@
 	<div class="w-full">
 		<div
 			v-if="variant === 'button'"
-			class="relative grid gap-1 bg-blue-light p-[3px] rounded-full overflow-x-auto scrollbar-hide"
 			:style="{ gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }"
+			:class="['relative grid gap-1 bg-blue-light p-1 rounded-full overflow-x-auto scrollbar-hide', mainClass]"
 		>
 			<div
-				class="absolute top-0.5 bottom-0.5 bg-white rounded-full shadow-[0_5px_12px_0_rgba(0,0,0,0.12)] transition-all duration-300 ease-in-out"
+				class="absolute top-[3px] bottom-[3px] bg-white rounded-full shadow-[0_5px_12px_0_rgba(0,0,0,0.12)] transition-all duration-300 ease-in-out"
 				:style="{
 					width: `calc(${100 / tabs.length}% - 4px)`,
-					left: `calc(${activeTab * (100 / tabs.length)}% + 2px)`
+					left: `calc(${activeTab * (100 / tabs.length)}% + 3px)`
 				}"
 			></div>
 			<button
@@ -59,6 +59,7 @@ interface Props {
 	tabs: Tab[]
 	variant?: 'button' | 'pill'
 	contentClass?: string
+	mainClass?: string
 }
 const props = withDefaults(defineProps<Props>(), {
 	variant: 'button'

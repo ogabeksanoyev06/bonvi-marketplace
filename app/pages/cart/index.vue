@@ -80,7 +80,7 @@
 								class="w-full !text-blue !text-base !font-bold !bg-[#0083FF14]"
 								@click="isAddCardModalOpen = true"
 							/>
-							<ModalCheckoutAddCard v-model="isAddCardModalOpen" />
+							<ModalPaymentsAddCard v-model="isAddCardModalOpen" />
 						</div>
 					</UITabs>
 					<FormSwitch main-class="!p-4">

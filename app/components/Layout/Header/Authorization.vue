@@ -21,7 +21,7 @@
 				class="w-full group flex items-center gap-2 p-3 cursor-pointer border-b border-gray last:border-b-0 transition-300 hover:bg-gray/50"
 				@click="handleItemClick(item)"
 			>
-				<span class="size-7 flex-center rounded-full p-1 shrink-0" :class="[item.key === 'logout' ? 'text-[#F11000] bg-[#F110001F]' : 'bg-gray']">
+				<span class="size-7 flex-center rounded-full p-1 shrink-0" :class="[item.key === 'logout' ? 'text-red bg-[#F110001F]' : 'bg-gray']">
 					<i class="text-xl leading-5 transition-300" :class="item.icon" />
 				</span>
 				<span class="text-sm font-medium leading-140 transition-300">

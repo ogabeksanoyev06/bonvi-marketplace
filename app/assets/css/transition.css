@@ -113,6 +113,24 @@
 	animation: page-change 200ms ease-in reverse;
 }
 
+.profile-page-change-enter-active {
+	animation: change 200ms ease-out;
+}
+.profile-page-change-leave-active {
+	animation: change 200ms ease-in reverse;
+}
+
+@keyframes change {
+	0% {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 @keyframes page-change {
 	0% {
 		opacity: 0;

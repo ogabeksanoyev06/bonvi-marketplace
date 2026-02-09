@@ -29,6 +29,15 @@ export default {
 					DEFAULT: '#0083FF',
 					light: '#F3F6F8'
 				},
+				purple: {
+					DEFAULT: '#B559F3'
+				},
+				orange: {
+					DEFAULT: '#F78229'
+				},
+				red: {
+					DEFAULT: '#F11000'
+				},
 				green: {
 					DEFAULT: '#00BF53'
 				},
@@ -53,13 +62,7 @@ export default {
 			},
 			fontSize: {},
 			boxShadow: {
-				main: `
-    			0 367px 103px 0 rgba(215,218,223,0.00),
-    			0 235px 94px 0 rgba(215,218,223,0.01),
-    			0 132px 79px 0 rgba(215,218,223,0.05),
-    			0 59px 59px 0 rgba(215,218,223,0.09),
-    			0 15px 32px 0 rgba(215,218,223,0.10)
-  			`,
+				main: '0 367px 103px 0 rgba(215,218,223,0.00),0 235px 94px 0 rgba(215,218,223,0.01),0 132px 79px 0 rgba(215,218,223,0.05),0 59px 59px 0 rgba(215,218,223,0.09),0 15px 32px 0 rgba(215,218,223,0.10)',
 				card: '0 416px 117px 0 rgba(0, 0, 0, 0.00),0 266px 107px 0 rgba(0, 0, 0, 0.01),0 150px 90px 0 rgba(0, 0, 0, 0.03),0 67px 67px 0 rgba(0, 0, 0, 0.05),0 17px 37px 0 rgba(0, 0, 0, 0.06)'
 			},
 			borderColor: {},
