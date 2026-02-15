@@ -6,8 +6,8 @@
 		<SectionProducts />
 		<SectionCraftsmen />
 		<MainCourses />
-		<MainBlogAndNews /> -->
-		<CommonFaq />
+		<MainBlogAndNews />
+		<CommonFaq /> -->
 	</div>
 </template>
 <script setup></script>
