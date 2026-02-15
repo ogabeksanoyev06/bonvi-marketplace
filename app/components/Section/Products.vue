@@ -27,7 +27,7 @@
 						<CardProductLoading v-for="key in 8" :key="key" />
 					</template>
 					<template v-else>
-						<CardProduct v-for="item in data?.results" :key="item.id" :item="item" imageBg="blue" />
+						<CardProduct v-for="item in data?.results || []" :key="item.id" :item="item" imageBg="blue" />
 					</template>
 				</div>
 			</transition>

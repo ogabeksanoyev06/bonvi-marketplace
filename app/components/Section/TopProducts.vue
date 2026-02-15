@@ -14,7 +14,7 @@
 				</template>
 				<template v-else>
 					<Swiper v-bind="settings" class="!overflow-visible">
-						<SwiperSlide v-for="item in data?.results" :key="item.id">
+						<SwiperSlide v-for="item in data?.results || []" :key="item.id">
 							<CardProduct :item="item" imageBg="blue" />
 						</SwiperSlide>
 					</Swiper>

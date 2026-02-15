@@ -19,7 +19,7 @@
 					</template>
 
 					<template v-else>
-						<CardProduct v-for="item in data?.results" :key="item.id" :item="item" image-bg="blue" />
+						<CardProduct v-for="item in data?.results || []" :key="item.id" :item="item" image-bg="blue" />
 					</template>
 				</div>
 			</transition>
