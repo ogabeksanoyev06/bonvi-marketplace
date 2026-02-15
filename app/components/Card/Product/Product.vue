@@ -7,7 +7,7 @@
 			@mouseleave="startAutoplay"
 		>
 			<Swiper v-bind="settings" @swiper="onSwiper" @slideChange="onSlideChange">
-				<SwiperSlide v-for="(image, key) in item?.images" :key="key">
+				<SwiperSlide v-for="(image, key) in item?.images || []" :key="key">
 					<UIImage :src="image.image_url" :image-class="`!w-[221px] aspect-square !object-contain ${imageClasses || ''}`" class="flex justify-center pb-5 sm:pb-7 pt-4" />
 				</SwiperSlide>
 			</Swiper>
