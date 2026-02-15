@@ -29,7 +29,7 @@
 				class="absolute top-2.5 left-2.5 w-[75px] aspect-[75/21.21] z-10"
 			/>
 			<div class="absolute top-2 right-2 sm:top-3 sm:right-3 z-5">
-				<UIButtonSave v-model="item.is_saved" :slug="item.slug" class="!size-9" @button-clicked="$emit('toggle-favourite')" />
+				<UIButtonSave v-model="item?.is_saved" :slug="item?.slug" class="!size-9" @button-clicked="$emit('toggle-favourite')" />
 			</div>
 			<div class="absolute bottom-0 right-0 z-5" v-if="item?.discount_price">
 				<div class="relative">
@@ -39,7 +39,7 @@
 			</div>
 		</div>
 		<div class="flex flex-col flex-1 justify-between gap-4">
-			<NuxtLinkLocale :to="`/products/${item.slug}`" class="flex flex-col gap-1 transition-300">
+			<NuxtLinkLocale :to="`/products/${item?.slug}`" class="flex flex-col gap-1 transition-300">
 				<h3 class="text-lg sm:text-2xl !leading-130 font-[900] line-clamp-1">{{ item?.name }}</h3>
 				<p class="text-sm leading-130 text-ellipsis line-clamp-2">{{ item?.description }}</p>
 				<div class="">
@@ -47,7 +47,7 @@
 					<span class="text-sm sm:text-base !leading-130 line-through ml-2 opacity-60" v-if="item?.discount_price">{{ formatMoneyDecimal(item?.discount_price) }} UZS</span>
 				</div>
 			</NuxtLinkLocale>
-			<UIButtonAddToCart class="!mt-auto" :product-slug="item?.slug" :initial-quantity="item?.in_cart_quantity || 0" :max-stock="item.count" />
+			<UIButtonAddToCart class="!mt-auto" :product-slug="item?.slug" :initial-quantity="item?.in_cart_quantity || 0" :max-stock="item?.count" />
 		</div>
 	</div>
 </template>
@@ -62,7 +62,7 @@ import type { IProductItem } from '~/types/products'
 
 const props = withDefaults(
 	defineProps<{
-		item: IProductItem
+		item?: IProductItem
 		imageBg?: 'white' | 'blue'
 		mainClass?: string
 		imageClasses?: string
