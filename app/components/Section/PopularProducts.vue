@@ -24,7 +24,7 @@
 				</div>
 			</transition>
 
-			<NuxtLinkLocale v-if="data?.results && data.results.length > 0" to="/products" class="mx-auto flex justify-center mt-8">
+			<NuxtLinkLocale v-if="data?.results && data?.results?.length > 0" to="/products" class="mx-auto flex justify-center mt-8">
 				<UIButton text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
 			</NuxtLinkLocale>
 		</div>
