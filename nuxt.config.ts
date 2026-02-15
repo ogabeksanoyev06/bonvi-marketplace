@@ -30,12 +30,12 @@ export default defineNuxtConfig({
 			{
 				code: 'en',
 				iso: 'en-US',
-				file: 'en.js'
+				file: 'en.json'
 			},
 			{
 				code: 'ru',
 				iso: 'ru-RU',
-				file: 'ru.js'
+				file: 'ru.json'
 			},
 			{
 				code: 'uz',
@@ -45,7 +45,7 @@ export default defineNuxtConfig({
 			{
 				code: 'zh',
 				iso: 'zh-CN',
-				file: 'zh.js'
+				file: 'zh.json'
 			}
 		],
 		defaultLocale: 'uz',
