@@ -3,74 +3,70 @@
 		<div class="flex flex-col gap-6 md:gap-8 bg-white rounded-[40px] px-4 py-6 md:px-10 md:py-10">
 			<div class="flex-center-between">
 				<h2 class="section-title">Blog va yangiliklar</h2>
-				<UIButton class="md:flex hidden" text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
+				<NuxtLinkLocale to="/blog">
+					<UIButton class="md:flex hidden" text="Barchasini ko'rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
+				</NuxtLinkLocale>
 			</div>
-			<div class="flex flex-col md:flex-row md:items-stretch gap-6 md:gap-10 bg-white rounded-2xl overflow-hidden">
-				<div class="relative md:max-w-[582px] w-full aspect-video md:aspect-auto h-[340px]">
-					<UIImage src="/images/background-patterns.webp" alt="blog-main-article" class="rounded-2xl object-cover w-full h-full" />
+
+			<transition name="fade" mode="out-in">
+				<div v-if="isPending" key="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+					<CardBlogLoading v-for="i in 3" :key="i" />
 				</div>
-				<div class="flex flex-col justify-between gap-4 md:gap-10 md:max-w-[562px] w-full">
-					<div class="flex flex-col gap-2 md:gap-7">
-						<div class="flex-y-center gap-1 border border-gray px-2 py-1.5 rounded-[20px] w-max">
-							<span class="icon-calendar text-xl leading-5 text-gray-3"></span>
-							<span class="text-gray-3 font-medium">2024-06-10</span>
+
+				<div v-else key="content" class="flex flex-col gap-6 md:gap-10">
+					<div class="flex flex-col md:flex-row md:items-stretch gap-6 md:gap-10 bg-white rounded-2xl overflow-hidden">
+						<div class="relative md:max-w-[582px] w-full aspect-video md:aspect-auto h-[340px]">
+							<UIImage :src="mainBlog?.image" alt="blog-main-article" class="rounded-2xl object-cover w-full h-full" />
 						</div>
-						<div class="flex flex-col gap-2 md:gap-4">
-							<h2 class="text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-bold !leading-130">Kichkintoylar uchun yangilik!</h2>
-							<p class="text-sm sm:text-base !leading-130 line-clamp-3">
-								Endi Buxoro filialimizda jaji bolajonlarimiz uchun ulkan yangilik, endi siz 1ta samokat narhiga 2ta samokat sotib olishingiz mumkin. 1+1 aksiaya endi Bonvi
-								Marketplaceda!
-							</p>
+						<div class="flex flex-col justify-between gap-4 md:gap-10 md:max-w-[562px] w-full">
+							<div class="flex flex-col gap-2 md:gap-7">
+								<div class="flex-y-center gap-1 border border-gray px-2 py-1.5 rounded-[20px] w-max">
+									<span class="icon-calendar text-xl leading-5 text-gray-3"></span>
+									<span class="text-gray-3 font-medium">{{ dayjs(mainBlog?.created_at).format('D-MMMM, HH:mm') }}</span>
+								</div>
+								<div class="flex flex-col gap-2 md:gap-4">
+									<h2 class="text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-bold !leading-130">{{ mainBlog?.title }}</h2>
+									<p class="text-sm sm:text-base !leading-130 line-clamp-3">{{ mainBlog?.description }}</p>
+								</div>
+							</div>
+
+							<NuxtLinkLocale :to="`/blog/${mainBlog?.id}`">
+								<UIButton text="Batafsil" class="w-[104px] md:w-[136px]" />
+							</NuxtLinkLocale>
 						</div>
 					</div>
-					<UIButton text="Batafsil" class="w-[104px] md:w-[136px]" />
-				</div>
-			</div>
-			<transition name="fade" mode="out-in">
-				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-					<template v-if="isPending">
-						<CardBlogLoading v-for="key in 6" :key="key" />
-					</template>
-					<template v-else>
-						<CardBlog v-for="item in items" :key="item.id" :image="item.image" :title="item.title" :description="item.description" :date="item.date" />
-					</template>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+						<CardBlog v-for="item in items" :key="item.id" :item="item" />
+					</div>
 				</div>
 			</transition>
+
+			<NuxtLinkLocale to="/blog" class="md:hidden">
+				<UIButton class="w-full" variant="secondary" text="Barchasini ko'rish" />
+			</NuxtLinkLocale>
 		</div>
 	</section>
 </template>
 <script lang="ts" setup>
-const isPending = ref(true)
+import { useQuery } from '@tanstack/vue-query'
+import type { IBlogListResponse, IBlogItem } from '~/types/blogs.d'
 
-const items = ref([
-	{
-		id: 1,
-		image: '/images/background-patterns.webp',
-		title: 'Cobal avtomashinasiga metan balon qanday o’rnatiladi?',
-		description: 'Ho’sh Coabalt Chevralet avtomashinasiga nechta metan balon o’rnatish mumkin.  7 qadam orqali siz qanday muammolarga tayyor turishni bilib olasiz.',
-		date: '23-yanvar, 12:00'
-	},
-	{
-		id: 2,
-		image: '/images/background-patterns.webp',
-		title: 'Qish keldi shinalar esa sirpanishni boshladimi? Unda DARK sizga yordam beradi.',
-		description:
-			'Qish uchun mo’ljallangan shinalarimiz endi sotuvda. Endi siz qorli muzliklarda hotirjam harakatlana olasiz. Temir zanjir o’rashga esa umuman hojat yo’q. Hoziroq telefon qilin.',
-		date: '2024-06-10'
-	},
-	{
-		id: 3,
-		image: '/images/background-patterns.webp',
-		title: 'Avtomobilingiz uchun eng yaxshi yog’ni qanday tanlash mumkin?',
-		description:
-			'Avtomobilingiz dvigatelining uzoq umr ko’rishi va samarali ishlashi uchun to’g’ri yog’ni tanlash juda muhimdir. Ushbu maqolada sizga eng yaxshi yog’ni tanlash bo’yicha foydali maslahatlar beramiz.',
-		date: '2024-06-05'
+const { $axios } = useNuxtApp()
+const dayjs = useDayjs()
+
+const { isPending, data } = useQuery({
+	queryKey: ['blogs', 'main-section'],
+	queryFn: async () => {
+		const res = await $axios.get<IBlogListResponse>('common/blog-list/', {
+			params: {
+				limit: 4
+			}
+		})
+		return res.data
 	}
-])
-
-onMounted(() => {
-	setTimeout(() => {
-		isPending.value = false
-	}, 2000)
 })
+
+const mainBlog = computed(() => data.value?.results[0] || null)
+const items = computed(() => data.value?.results.slice(1, 4) || null)
 </script>

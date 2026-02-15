@@ -9,7 +9,7 @@
 			class="transition select-none duration-200 ease-in-out inline-flex items-center w-12 h-7 relative overflow-hidden rounded-[48px] cursor-pointer p-0.5 shrink-0"
 			:class="modelValue ? 'bg-blue' : 'bg-gray'"
 		>
-			<div class="bg-red w-full h-full absolute inset-0 opacity-0 transition-300" :class="{ '!opacity-100': modelValue }" />
+			<div class="bg-blue w-full h-full absolute inset-0 opacity-0 transition-300" :class="{ '!opacity-100': modelValue }" />
 			<span
 				class="absolute w-[22px] h-[22px] shadow-[0_4px_4px_0_rgba(0,0,0,0.02),_0_2px_4px_0_rgba(0,0,0,0.28)] rounded-full transition bg-white duration-200 ease-in-out z-[1]"
 				:class="modelValue ? 'translate-x-5' : 'translate-x-0'"

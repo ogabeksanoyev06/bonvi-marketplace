@@ -35,11 +35,11 @@
 						<img src="/images/header/basket.svg" alt="icon cart" />
 					</NuxtLinkLocale>
 					<div class="w-0.5 h-[30px] rounded-full bg-gray shrink-0 lg:block hidden" />
-					<LayoutHeaderAuthorization @open-auth="isOpen = true" />
+					<LayoutHeaderAuthorization />
 				</div>
 			</div>
 		</div>
-		<ModalAuth v-model="isOpen" />
+
 		<LayoutHeaderMobileMenu v-model="isMenuOpen" />
 	</header>
 </template>
@@ -52,7 +52,6 @@ const { y } = useWindowScroll()
 const { t } = useI18n()
 const { width } = useWindowSize()
 
-const isOpen = ref(false)
 const isMenuOpen = ref(false)
 
 const navigationLinks = computed(() => [

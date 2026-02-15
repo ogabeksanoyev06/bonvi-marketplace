@@ -132,6 +132,8 @@
 </template>
 
 <script setup lang="ts">
+import { useQuery } from '@tanstack/vue-query'
+
 const navigationLinks = [
 	{ id: 'home', label: 'Asosiy', to: '/' },
 	{ id: 'about', label: 'Biz haqimizda', to: '/about' },
@@ -161,4 +163,11 @@ const legalLinks = [
 	{ to: '/static/privacy-policy', label: 'Privacy Policy' },
 	{ to: '/static/terms', label: 'Terms & Conditions' }
 ]
+
+const { $axios } = useNuxtApp()
+
+const { data, isPending } = useQuery({
+	queryKey: ['contact-info'],
+	queryFn: () => $axios.get('common/contact-info/').then((r) => r.data)
+})
 </script>

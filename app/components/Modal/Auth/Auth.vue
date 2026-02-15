@@ -16,24 +16,24 @@
 				<!-- STEP 1: Phone -->
 				<div v-if="step === 1" class="flex flex-col gap-4 w-full">
 					<FormGroup label="Telefon raqami">
-						<FormInput v-model="form.values.phone" v-maska="'## ### ## ##'" placeholder="00 000 00 00">
+						<FormInput v-model="form.values.phone_number" v-maska="'## ### ## ##'" placeholder="00 000 00 00" :error="form.$v.value.phone_number.$error">
 							<template #prefix>
 								<span class="pr-2">+998</span>
 							</template>
 						</FormInput>
 					</FormGroup>
-					<FormCheckbox label="Referal kod orqali kirish" v-model="form.values.useReferral" />
+					<FormCheckbox label="Referal kod orqali kirish" v-model="useReferral" />
 					<!-- Referral code -->
-					<div v-if="form.values.useReferral" class="w-full">
+					<div v-if="useReferral" class="w-full">
 						<FormGroup label="Referal kod">
-							<FormInput v-model="form.values.referral" class="px-3" />
+							<FormInput v-model="form.values.referral" :error="form.$v.value.referral.$error" />
 						</FormGroup>
 					</div>
 				</div>
 				<!-- STEP 2: Confirm Phone -->
 				<div v-else-if="step === 2" class="flex flex-col gap-6 w-full">
 					<div class="text-center">
-						<h2 class="text-2xl font-bold">+998 {{ form.values.phone }}</h2>
+						<h2 class="text-2xl font-bold">+998 {{ form.values.phone_number }}</h2>
 						<span class="text-sm text-[#999EA1]">Kiritilgan raqam to‘g‘rimi?</span>
 					</div>
 
@@ -51,7 +51,7 @@
 							<span>Quyidagi raqamga tasdiqlash kodi yuborildi</span>
 							<UIButton
 								variant="secondary"
-								text="+998 93 472 93 35"
+								:text="phoneNumberFormat(form.values.phone_number)"
 								icon="icon-edit text-2xl leading-6"
 								class="!rounded-[14px] font-medium"
 								mainClass="gap-2.5"
@@ -60,7 +60,7 @@
 						</div>
 					</div>
 					<div class="flex flex-col items-center gap-3">
-						<FormInputOtp :digits="5" />
+						<FormInputOtp :digits="6" v-model="form.values.otp" :error="form.$v.value.otp.$error" />
 						<FormOtpTimer :timer="true" :seconds-val="90" @timeout="timer = false" @resend="sendCode" />
 					</div>
 				</div>
@@ -68,11 +68,11 @@
 				<!-- STEP 4: FIO & Birthday -->
 				<div v-else="step === 4" class="flex flex-col gap-4 w-full">
 					<FormGroup label="To‘liq ismingiz">
-						<FormInput v-model="form.values.name" />
+						<FormInput v-model="form.values.full_name" :error="form.$v.value.full_name.$error" />
 					</FormGroup>
 
 					<FormGroup label="Tug‘ilgan sana">
-						<FormInput v-maska="'##.##.####'" v-model="form.values.birthday">
+						<FormInput v-maska="'##.##.####'" v-model="form.values.birthday" :error="form.$v.value.birthday.$error">
 							<template #suffix>
 								<span class="icon-calendar pl-3" />
 							</template>
@@ -80,12 +80,13 @@
 					</FormGroup>
 				</div>
 			</Transition>
+
 			<!-- footer -->
 			<div class="flex flex-col items-center gap-3 text-center w-full" v-if="step != 2">
 				<p class="font-medium" v-if="step === 1">
 					Tizimga kirish orqali siz <a href="http://" target="_blank" rel="noopener noreferrer" class="text-blue underline">ommaviy oferta</a> shartlariga rozilik bildirasiz
 				</p>
-				<UIButton text="Davom etish" class="w-full font-bold" @click="handleSubmitForm" />
+				<UIButton text="Davom etish" class="w-full font-bold" @click="handleSubmitForm" :loading="isLoading" />
 			</div>
 
 			<!-- close-icon -->
@@ -97,60 +98,118 @@
 </template>
 
 <script setup lang="ts">
-import { required, minLength, sameAs } from '@vuelidate/validators'
+import { useMutation } from '@tanstack/vue-query'
+import { required, minLength, requiredIf } from '@vuelidate/validators'
+import type { ISendOtpResponse, IVerifyOtpResponse } from '~/types/users.d'
 
-const emit = defineEmits<{
-	close: []
-}>()
 const isOpen = defineModel<boolean>('modelValue', { required: true })
-
-const form = useForm(
-	{
-		phone: '',
-		name: '',
-		birthday: '',
-		referral: '',
-		useReferral: false
-	},
-	{}
-)
 
 const step = ref(1)
 const timer = ref(true)
+const useReferral = ref(false)
+const sessionId = ref('')
 
-const sendCode = () => {
-	if (form.values.useReferral) {
-		step.value = 4
-	} else {
-		step.value = 2
+const { $axios } = useNuxtApp()
+const authStore = useAuthStore()
+
+const { isAuthenticated } = storeToRefs(authStore)
+const { setTokens, updateUser } = authStore
+
+const { showToast } = useCustomToast()
+const dayjs = useDayjs()
+
+const form = useForm(
+	{
+		phone_number: '',
+		otp: '062745',
+		full_name: '',
+		birthday: '',
+		referral: ''
+	},
+	{
+		phone_number: { required: requiredIf(() => step.value === 1), minLength: minLength(12) },
+		otp: { required: requiredIf(() => step.value === 3), minLength: minLength(6) },
+		full_name: { required: requiredIf(() => step.value === 4), minLength: minLength(3) },
+		birthday: { required: requiredIf(() => step.value === 4), minLength: minLength(10) },
+		referral: { required: requiredIf(() => step.value === 1 && useReferral.value) }
 	}
+)
+
+// mutations
+const { mutateAsync: sendCode, isPending: isSending } = useMutation({
+	mutationFn: (phone: string) => {
+		return $axios.post<ISendOtpResponse>('/users/send-otp/', {
+			phone_number: phone
+		})
+	},
+	onSuccess: (res) => {
+		step.value = useReferral.value ? 4 : 2
+		sessionId.value = res.data.session
+		showToast(res.data?.detail || 'Muvaffaqiyatli!', 'success')
+	},
+	onError: (err: any) => {
+		showToast(err?.response?.data?.detail || err?.message || 'Xatolik', 'error')
+	}
+})
+const { mutateAsync: verifyCode, isPending: isVerifying } = useMutation({
+	mutationFn: (data: { session: string; otp_code: string }) => {
+		return $axios.post<IVerifyOtpResponse>('/users/verify-otp/', {
+			session: data.session,
+			otp_code: data.otp_code
+		})
+	},
+	onSuccess: (res) => {
+		step.value = 4
+		setTokens(res.data.tokens.access, res.data.tokens.refresh)
+		showToast(res.data.detail, 'success')
+	},
+	onError: (err: any) => {
+		showToast(err?.response?.data?.detail || err?.message || 'Xatolik', 'error')
+	}
+})
+
+const handleSave = async () => {
+	await updateUser({
+		full_name: form.values.full_name,
+		date_birth: dayjs(form.values.birthday).format('YYYY-MM-DD')
+	})
+	isOpen.value = false
+	step.value = 1
+	form.values = {
+		phone_number: '',
+		otp: '062745',
+		full_name: '',
+		birthday: '',
+		referral: ''
+	}
+	form.$v.value.$reset()
 }
 
-const handleVerifyPhone = () => {
-	step.value = 3
-}
+const isLoading = computed(() => isSending.value || isVerifying.value)
 
-const handleVerifyCode = () => {
-	step.value = 4
-}
+const handleSubmitForm = async () => {
+	form.$v.value.$touch()
+	if (!form.$v.value.$invalid) {
+		switch (step.value) {
+			case 1:
+				sendCode('+998' + form.values.phone_number.replace(/ /g, ''))
+				break
 
-const handleSubmitForm = () => {
-	switch (step.value) {
-		case 1:
-			sendCode()
-			break
-		case 2:
-			handleVerifyPhone()
-			break
-		case 3:
-			handleVerifyCode()
-			break
-		case 4:
-			isOpen.value = false
-			step.value = 1
-			break
-		default:
-			step.value = 1
+			case 2:
+				step.value = 3
+				break
+
+			case 3:
+				verifyCode({ session: sessionId.value, otp_code: form.values.otp })
+				break
+
+			case 4:
+				await handleSave()
+				break
+
+			default:
+				step.value = 1
+		}
 	}
 }
 </script>

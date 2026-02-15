@@ -1,13 +1,19 @@
 <template>
 	<button
 		:class="[variants[variant], sizes[size], { '!pointer-events-none': loading }]"
-		class="relative inline-flex items-center justify-center h-10 gap-2 whitespace-nowrap text-sm sm:text-base !leading-140 font-bold transition-300 rounded-full active:scale-95 group/button disabled:opacity-50 disabled:pointer-events-none group"
-		v-bind="{ disabled, type }"
+		class="relative inline-flex items-center justify-center h-10 gap-2 whitespace-nowrap text-sm sm:text-base !leading-140 font-bold transition-300 rounded-full active:scale-95 group/button disabled:opacity-70 disabled:pointer-events-none group"
+		v-bind="{ disabled: disabled || loading, type }"
 	>
+		<!-- Loading Spinner -->
+		<span v-if="loading" class="flex-center w-full absolute inset-0">
+			<img src="/svg/spinner.svg" alt="spinner" class="size-6 animate-spin" />
+		</span>
+
+		<!-- Content -->
 		<span
 			:class="[
 				{
-					'!opacity-0': loading,
+					'opacity-0 invisible': loading,
 					'flex-row-reverse': iconPosition === 'left'
 				},
 				mainClass

@@ -19,8 +19,8 @@
 				</template>
 				<template v-else>
 					<Swiper v-bind="settings" class="!overflow-visible">
-						<SwiperSlide v-for="item in 8" :key="item">
-							<CardCraftsmen :name="'Abdurahim Eshonjonov'" :service="'Avtomobil shinalarini almashtirish'" :phone="'+998 90 123 45 67'" :city="'Toshkent shahri'" />
+						<SwiperSlide v-for="item in data.results" :key="item.id">
+							<CardCraftsmen :item="item" />
 						</SwiperSlide>
 					</Swiper>
 				</template>
@@ -34,12 +34,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useQuery } from '@tanstack/vue-query'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/autoplay'
-const isPending = ref(true)
 
 const settings = {
 	modules: [Autoplay],
@@ -71,9 +70,18 @@ const settings = {
 	}
 }
 
-onMounted(() => {
-	setTimeout(() => {
-		isPending.value = false
-	}, 2000)
+const { $axios } = useNuxtApp()
+const dayjs = useDayjs()
+
+const { isPending, data } = useQuery({
+	queryKey: ['craftsman-section'],
+	queryFn: async () => {
+		const res = await $axios.get('common/carpenter-list/', {
+			params: {
+				limit: 12
+			}
+		})
+		return res.data
+	}
 })
 </script>

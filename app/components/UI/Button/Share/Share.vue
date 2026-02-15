@@ -8,16 +8,16 @@
 			<div class="p-5">
 				<p class="text-dark leading-6 text-xl font-bold mb-6">Ulashish</p>
 
-				<div class="flex items-center justify-center rounded-lg cursor-pointer overflow-hidden border border-gray-200 bg-gray-100 gap-5 h-12 px-4 py-1.5 w-full">
+				<div class="flex items-center justify-center rounded-2xl cursor-pointer overflow-hidden border border-gray-200 bg-gray-100 gap-5 h-12 px-4 py-1.5 w-full">
 					<span v-for="(i, idx) in links" :key="idx" :class="i.icon" class="transition-200 text-black text-2xl leading-6 cursor-pointer" @click="share(i.network)"></span>
 				</div>
 
-				<div class="flex items-center rounded-lg border border-gray-200 bg-gray-100 gap-3 pl-4 mt-3 w-full">
+				<div class="flex items-center rounded-2xl border border-gray-200 bg-gray-100 gap-3 pl-4 mt-3 w-full">
 					<p class="font-semibold text-sm truncate flex-1">
 						{{ fullUrl }}
 					</p>
 
-					<button class="w-10 h-12 flex-center bg-white border-l border-white rounded-r-lg duration-200 relative" @click="copyUrl">
+					<button class="w-10 h-12 flex-center bg-white border-l border-white rounded-r-2xl duration-200 relative" @click="copyUrl">
 						<Transition
 							enter-active-class="transition-all duration-200"
 							enter-from-class="opacity-0 scale-50"

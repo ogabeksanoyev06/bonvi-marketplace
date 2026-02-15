@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div class="flex flex-col items-center justify-center md:min-h-[400px] py-8">
+		<div class="flex flex-col items-center justify-center md:min-h-[400px] py-8 w-full">
 			<img :src="`/images/${image}`" alt="box" class="w-[140px] aspect-square object-contain" />
 			<div class="flex flex-col items-center text-center gap-1.5 max-w-[364px] w-full">
 				<h3 class="text-xl !leading-130 font-bold">{{ title }}</h3>

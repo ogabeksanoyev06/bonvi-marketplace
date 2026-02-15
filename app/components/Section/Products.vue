@@ -16,7 +16,7 @@
 						</div>
 					</template>
 					<template v-else>
-						<SectionCarouselProducts :products="items" />
+						<SectionCarouselProducts :products="data?.results" />
 					</template>
 				</transition>
 			</div>
@@ -27,18 +27,7 @@
 						<CardProductLoading v-for="key in 8" :key="key" />
 					</template>
 					<template v-else>
-						<CardProduct
-							v-for="item in items"
-							:key="item.id"
-							:images="item.images"
-							:title="item.title"
-							:description="item.description"
-							:originalPrice="item.originalPrice"
-							:discountedPrice="item.discountedPrice"
-							:discountPercent="item.discountPercent"
-							:brand="item.brand"
-							imageBg="blue"
-						/>
+						<CardProduct v-for="item in data?.results" :key="item.id" :item="item" imageBg="blue" />
 					</template>
 				</div>
 			</transition>
@@ -50,98 +39,15 @@
 	</section>
 </template>
 <script lang="ts" setup>
-import { useWindowSize } from '@vueuse/core'
+import { useQuery } from '@tanstack/vue-query'
+import type { IProductListResponse } from '~/types/products.d'
 
-const isPending = ref(true)
-
-const isMobile = computed(() => useWindowSize().width.value < 768)
-
-const items = ref([
-	{
-		id: 1,
-		images: ['/images/bonvi-product.png', '/images/bonvi-product.png', '/images/bonvi-product.png', '/images/bonvi-product.png'],
-		title: 'Qariyalar uchun mapet',
-		description: '12V tizimlar uchun ishonchli quvvat manbai. Barqaror kuchlanish beradi, o‘rnatish oson va uzoq muddat xizmat qiladi.',
-		originalPrice: 2000000,
-		discountedPrice: 1200000,
-		discountPercent: '51%',
-		brand: 'bonvi'
-	},
-	{
-		id: 2,
-		images: ['/images/bonvi-product.png', '/images/bonvi-product.png'],
-		title: 'LED chiroq',
-		description: 'Yuqori sifatli LED chiroq, energiya tejamkor va uzoq xizmat qiladi.',
-		originalPrice: 500000,
-		discountedPrice: 350000,
-		discountPercent: '30%',
-		brand: 'bonvi'
-	},
-	{
-		id: 3,
-		images: ['/images/vikor-product.png', '/images/vikor-product.png'],
-		title: 'Avtomobil akkumulyatori',
-		description: '12V tizimlar uchun ideal, ishonchli va uzoq umrli akkumulyator.',
-		originalPrice: 1800000,
-		discountedPrice: 1500000,
-		discountPercent: '17%',
-		brand: 'vikor'
-	},
-	{
-		id: 4,
-		images: ['/images/dark-product.png', '/images/dark-product.png'],
-		title: 'Uy uchun Mapet',
-		description: 'Barqaror kuchlanish va oson o‘rnatish bilan uy tizimlari uchun qulay.',
-		originalPrice: 1200000,
-		discountedPrice: 900000,
-		discountPercent: '25%',
-		brand: 'dark'
-	},
-	{
-		id: 5,
-		images: ['/images/bonvi-product.png', '/images/bonvi-product.png'],
-		title: 'Mobil Powerbank',
-		description: 'Tez quvvatlanadi, uzun xizmat muddati bilan xavfsiz.',
-		originalPrice: 600000,
-		discountedPrice: 450000,
-		discountPercent: '25%',
-		brand: 'bonvi'
-	},
-	{
-		id: 6,
-		images: ['/images/vikor-product.png', '/images/vikor-product.png'],
-		title: 'LED lampochka',
-		description: 'Yorqin va kam energiya sarf qiluvchi lampochka.',
-		originalPrice: 200000,
-		discountedPrice: 150000,
-		discountPercent: '25%',
-		brand: 'vikor'
-	},
-	{
-		id: 7,
-		images: ['/images/dark-product.png', '/images/dark-product.png'],
-		title: 'Avtomobil chiroqlari',
-		description: 'Yuqori sifatli va uzoq xizmat qiluvchi avtomobil chiroqlari.',
-		originalPrice: 800000,
-		discountedPrice: 600000,
-		discountPercent: '25%',
-		brand: 'dark'
-	},
-	{
-		id: 8,
-		images: ['/images/bonvi-product.png', '/images/bonvi-product.png'],
-		title: 'Uy sharoitida Mapet',
-		description: 'Barqaror kuchlanish, oson o‘rnatish va uzoq xizmat muddati.',
-		originalPrice: 1000000,
-		discountedPrice: 750000,
-		discountPercent: '25%',
-		brand: 'bonvi'
+const { $axios } = useNuxtApp()
+const { isPending, data } = useQuery({
+	queryKey: ['products-main-section'],
+	queryFn: async () => {
+		const res = await $axios.get<IProductListResponse>('products/list/', { params: { limit: 8 } })
+		return res.data
 	}
-])
-
-onMounted(() => {
-	setTimeout(() => {
-		isPending.value = false
-	}, 2000)
 })
 </script>

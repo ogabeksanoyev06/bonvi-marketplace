@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useCommonStore = defineStore('common', () => {
-	const authModal = ref(false)
+	const counter = ref(0)
 
-	return { authModal }
+	return { counter }
 })

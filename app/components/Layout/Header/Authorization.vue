@@ -1,15 +1,11 @@
 <template>
-	<UIButton class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="emit('open-auth')">
-		Kirish
-		<span class="icon-logout text-2xl leading-6 lg:block hidden"></span>
-	</UIButton>
-	<UIDropdown v-if="false" :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
+	<UIDropdown v-if="isAuthenticated" :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
 		<template #head="{ show }">
 			<div
-				class="flex items-center h-14 gap-1 bg-gray pr-4 rounded-full border-2 border-transparent overflow-hidden cursor-pointer transition-300"
+				class="flex items-center md:h-14 gap-1 bg-gray pr-2 md:pr-4 rounded-full border-2 border-transparent overflow-hidden cursor-pointer transition-300"
 				:class="[show ? '!border-blue bg-white' : '']"
 			>
-				<img src="/images/user.png" alt="user" class="rounded-full size-14 aspect-square" />
+				<img src="/images/user.png" alt="user" class="rounded-full size-10 md:size-14 aspect-square" />
 				<i class="icon-chevron flex-center text-2xl leading-6 aspect-square transition-300" :class="[show ? '!rotate-180' : '']" />
 			</div>
 		</template>
@@ -30,50 +26,64 @@
 			</div>
 		</template>
 	</UIDropdown>
+
+	<UIButton v-else class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true">
+		Kirish
+		<span class="icon-logout text-2xl leading-6 lg:block hidden"></span>
+	</UIButton>
+
+	<ModalAuth v-model="authModal" />
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const emit = defineEmits<{
-	(e: 'open-auth'): void
-}>()
-
+<script setup>
 const showDropdown = ref(false)
+
+const auth = useAuthStore()
+
+const { isAuthenticated, authModal } = storeToRefs(auth)
+const { logout } = auth
 
 const profileMenu = [
 	{
 		key: 'profile',
 		label: 'Profil ma’lumotlari',
-		icon: 'icon-user'
+		icon: 'icon-user',
+		route: '/profile'
 	},
 	{
 		key: 'orders',
 		label: 'Buyurtmalarim',
-		icon: 'icon-order'
+		icon: 'icon-order',
+		route: '/profile/orders'
 	},
 	{
 		key: 'cards',
 		label: 'Kartalarim',
-		icon: 'icon-card'
+		icon: 'icon-card',
+		route: '/profile/my-cards'
 	},
 	{
 		key: 'logout',
 		label: 'Tizimdan chiqish',
-		icon: 'icon-logout'
+		icon: 'icon-logout',
+		route: null
 	}
 ]
 
-function handleDropdownToggle(val: boolean) {
+function handleDropdownToggle(val) {
 	showDropdown.value = val
 }
 
-function handleItemClick(item: { key: string }) {
+function handleItemClick(item) {
 	showDropdown.value = false
 
 	if (item.key === 'logout') {
-		console.log('Logout')
+		logout()
 		return
+	}
+
+	if (item.route) {
+		navigateTo(item.route)
 	}
 }
 </script>

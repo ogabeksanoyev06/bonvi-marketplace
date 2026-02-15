@@ -1,3 +1,22 @@
+export function getNextPageOffset(lastPage: { next: string; results: any[] }, allPages: any[], limit: number = 8) {
+	if (lastPage.next) {
+		try {
+			const nextUrl = new URL(lastPage.next)
+			const offset = nextUrl.searchParams.get('offset')
+			return offset ? parseInt(offset) : undefined
+		} catch (e) {
+			console.warn('Invalid next URL:', lastPage.next)
+		}
+	}
+
+	const results = lastPage.results
+	if (Array.isArray(results) && results.length < limit) {
+		return undefined
+	}
+
+	return allPages.length * limit
+}
+
 export function formatMoneyDecimal(number: any, fix = 0) {
 	const option = {
 		maximumFractionDigits: fix,
@@ -13,10 +32,12 @@ export function phoneNumberFormat(number: string) {
 	if (!number) return ''
 
 	const cleaned = ('' + number).replace(/\D/g, '')
-	const match = cleaned.match(/^(\d{3})(\d{3})(\d{2})(\d{2})$/)
+
+	const match = cleaned.match(/^(\d{2})(\d{3})(\d{2})(\d{2})$/)
 	if (match) {
-		return `+${match[1]} (${match[2]}) ${match[3]}-${match[4]}`
+		return `+998 (${match[1]}) ${match[2]}-${match[3]}-${match[4]}`
 	}
+
 	return number
 }
 

@@ -75,7 +75,8 @@
 											</div>
 										</template>
 										<template v-else>
-											<SectionCarouselProducts :products="items" />
+											<div></div>
+											<!-- <SectionCarouselProducts :products="items" /> -->
 										</template>
 									</transition>
 								</div>
@@ -84,18 +85,8 @@
 										<CardProductLoading v-for="key in 8" :key="key" />
 									</template>
 									<template v-else>
-										<CardProduct
-											v-for="item in items"
-											:key="item.id"
-											:images="item.images"
-											:title="item.title"
-											:description="item.description"
-											:originalPrice="item.originalPrice"
-											:discountedPrice="item.discountedPrice"
-											:discountPercent="item.discountPercent"
-											:brand="item.brand"
-											image-bg="blue"
-										/>
+										<div></div>
+										<!-- <CardProduct image-bg="blue" /> -->
 									</template>
 								</div>
 							</div>
