@@ -29,7 +29,13 @@
 				class="absolute top-2.5 left-2.5 w-[75px] aspect-[75/21.21] z-10"
 			/>
 			<div class="absolute top-2 right-2 sm:top-3 sm:right-3 z-5">
-				<UIButtonSave v-model="item?.is_saved" :slug="item?.slug" class="!size-9" @button-clicked="$emit('toggle-favourite')" />
+				<UIButtonSave
+					:model-value="item?.is_saved"
+					:slug="item?.slug"
+					class="!size-9"
+					@update:model-value="(val) => (item.is_saved = val)"
+					@button-clicked="$emit('toggle-favourite')"
+				/>
 			</div>
 			<div class="absolute bottom-0 right-0 z-5" v-if="item?.discount_price">
 				<div class="relative">
@@ -62,7 +68,7 @@ import type { IProductItem } from '~/types/products'
 
 const props = withDefaults(
 	defineProps<{
-		item?: IProductItem
+		item: IProductItem
 		imageBg?: 'white' | 'blue'
 		mainClass?: string
 		imageClasses?: string

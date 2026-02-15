@@ -56,7 +56,7 @@
 			</div>
 			<div class="flex items-center gap-2">
 				<UIButtonAddToCart class="max-w-[250px]" :product-slug="product?.slug" :initial-quantity="product?.in_cart_quantity || 0" :max-stock="product?.count" />
-				<UIButtonSave v-if="product" v-model="product.is_saved" :slug="product.slug" />
+				<UIButtonSave v-if="product" :model-value="product.is_saved" :slug="product.slug" />
 				<UIButtonShare />
 			</div>
 		</div>
