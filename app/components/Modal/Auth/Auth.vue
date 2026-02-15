@@ -51,7 +51,7 @@
 							<span>Quyidagi raqamga tasdiqlash kodi yuborildi</span>
 							<UIButton
 								variant="secondary"
-								:text="phoneNumberFormat(form.values.phone_number)"
+								:text="phoneNumberFormat(form.values.phone_number) || ''"
 								icon="icon-edit text-2xl leading-6"
 								class="!rounded-[14px] font-medium"
 								mainClass="gap-2.5"
@@ -66,7 +66,7 @@
 				</div>
 
 				<!-- STEP 4: FIO & Birthday -->
-				<div v-else="step === 4" class="flex flex-col gap-4 w-full">
+				<div v-else-if="step === 4" class="flex flex-col gap-4 w-full">
 					<FormGroup label="To‘liq ismingiz">
 						<FormInput v-model="form.values.full_name" :error="form.$v.value.full_name.$error" />
 					</FormGroup>

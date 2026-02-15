@@ -52,7 +52,7 @@ const props = defineProps({
 		default: 'right'
 	},
 	text: {
-		type: String,
+		type: String | Number | Object,
 		default: 'Button'
 	},
 	icon: {
