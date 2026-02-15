@@ -35,7 +35,6 @@
 						<img src="/images/header/basket.svg" alt="icon cart" />
 					</NuxtLinkLocale>
 					<div class="w-0.5 h-[30px] rounded-full bg-gray shrink-0 lg:block hidden" />
-					<LayoutHeaderAuthorization />
 				</div>
 			</div>
 		</div>
@@ -45,12 +44,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { useWindowScroll, useWindowSize } from '@vueuse/core'
+import { useWindowScroll } from '@vueuse/core'
 
 const { y } = useWindowScroll()
 const { t } = useI18n()
-const { width } = useWindowSize()
 
 const isMenuOpen = ref(false)
 
