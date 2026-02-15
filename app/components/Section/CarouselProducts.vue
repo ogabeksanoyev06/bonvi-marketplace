@@ -33,10 +33,12 @@ const settings = {
 
 <template>
 	<div class="shrink-0">
-		<Swiper v-bind="settings">
-			<SwiperSlide v-for="item in props.products || []" :key="item.id">
-				<CardProduct :item="item" imageBg="blue" :main-class="props.productMainClass" />
-			</SwiperSlide>
-		</Swiper>
+		<ClientOnly>
+			<Swiper v-bind="settings">
+				<SwiperSlide v-for="item in props.products || []" :key="item.id">
+					<CardProduct :item="item" imageBg="blue" :main-class="props.productMainClass" />
+				</SwiperSlide>
+			</Swiper>
+		</ClientOnly>
 	</div>
 </template>
