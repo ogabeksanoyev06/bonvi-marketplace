@@ -48,9 +48,8 @@
 		</div>
 	</section>
 </template>
-<script lang="ts" setup>
+<script setup>
 import { useQuery } from '@tanstack/vue-query'
-import type { IBlogListResponse, IBlogItem } from '~/types/blogs.d'
 
 const { $axios } = useNuxtApp()
 const dayjs = useDayjs()
@@ -58,15 +57,11 @@ const dayjs = useDayjs()
 const { isPending, data } = useQuery({
 	queryKey: ['blogs', 'main-section'],
 	queryFn: async () => {
-		const res = await $axios.get<IBlogListResponse>('common/blog-list/', {
-			params: {
-				limit: 4
-			}
-		})
+		const res = await $axios.get('common/blog-list/', { params: { limit: 4 } })
 		return res.data
 	}
 })
 
 const mainBlog = computed(() => data.value?.results[0] || null)
-const items = computed(() => data.value?.results.slice(1, 4) || null)
+const items = computed(() => data.value?.results?.slice(1, 4) || [])
 </script>
