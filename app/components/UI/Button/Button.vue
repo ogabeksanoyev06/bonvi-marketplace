@@ -52,8 +52,9 @@ const props = defineProps({
 		default: 'right'
 	},
 	text: {
-		type: String || Number,
-		default: 'Button'
+		type: [String, Number],
+		default: 'Button',
+		validator: (value) => value !== undefined
 	},
 	icon: {
 		type: String,
