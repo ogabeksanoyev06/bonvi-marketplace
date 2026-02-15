@@ -1,10 +1,10 @@
 <template>
 	<div class="bg-background relative z-10 flex min-h-svh flex-col">
-		<!-- <LayoutHeader /> -->
+		<LayoutHeader />
 		<main class="flex flex-1 flex-col">
-			<slot />sas
+			<slot />
 		</main>
-		<!-- <LayoutFooter /> -->
+		<LayoutFooter />
 	</div>
 </template>
 

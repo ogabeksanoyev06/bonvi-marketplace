@@ -166,8 +166,8 @@ const legalLinks = [
 
 const { $axios } = useNuxtApp()
 
-const { data, isPending } = useQuery({
-	queryKey: ['contact-info'],
-	queryFn: () => $axios.get('common/contact-info/').then((r) => r.data)
-})
+// const { data, isPending } = useQuery({
+// 	queryKey: ['contact-info'],
+// 	queryFn: () => $axios.get('common/contact-info/').then((r) => r.data)
+// })
 </script>
