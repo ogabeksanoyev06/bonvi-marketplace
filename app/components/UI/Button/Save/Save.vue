@@ -13,10 +13,15 @@
 <script setup lang="ts">
 import { useMutation } from '@tanstack/vue-query'
 
-const props = defineProps<{
+interface Props {
 	slug: string
 	modelValue: boolean
-}>()
+}
+
+const props = withDefaults(defineProps<Props>(), {
+	slug: '',
+	modelValue: false
+})
 
 const emit = defineEmits(['update:modelValue', 'button-clicked'])
 
