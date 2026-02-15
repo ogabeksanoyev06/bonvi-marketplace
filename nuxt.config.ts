@@ -58,12 +58,5 @@ export default defineNuxtConfig({
 		compilation: {
 			strictMessage: false
 		}
-	},
-
-	runtimeConfig: {
-		apiSecret: '123',
-		public: {
-			apiBase: 'https://bonvimarket.uz/api/v1/'
-		}
 	}
 })

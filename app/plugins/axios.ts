@@ -26,7 +26,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 	}
 
 	const instance = axios.create({
-		baseURL: config.public.apiBase || 'https://bonvimarket.uz/api/v1/',
+		baseURL: 'https://bonvimarket.uz/api/v1/',
 		headers: {
 			'Content-Type': 'application/json'
 		}
