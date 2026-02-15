@@ -16,7 +16,7 @@
 					class="text-black text-base leading-130 font-medium px-2 py-1 rounded-full bg-transparent hover:text-blue transition-300"
 					active-class="text-blue !bg-[#0083FF14]"
 				>
-					{{ link.title }}
+					{{ link.label }}
 				</NuxtLinkLocale>
 			</nav>
 			<div class="flex items-center gap-6 lg:gap-3 xl:gap-5 flex-1 justify-end">
@@ -54,28 +54,13 @@ const { width } = useWindowSize()
 
 const isMenuOpen = ref(false)
 
-const navigationLinks = computed(() => [
-	{
-		title: t('home'),
-		route: '/'
-	},
-	{
-		title: t('about'),
-		route: '/about'
-	},
-	{
-		title: t('courses'),
-		route: '/courses'
-	},
-	{
-		title: t('products'),
-		route: '/products'
-	},
-	{
-		title: t('blog'),
-		route: '/blog'
-	}
-])
+const navigationLinks = [
+	{ id: 'home', label: 'Asosiy', route: '/' },
+	{ id: 'about', label: 'Biz haqimizda', route: '/about' },
+	{ id: 'courses', label: 'Darsliklar', route: '/courses' },
+	{ id: 'products', label: 'Mahsulotlar', route: '/products' },
+	{ id: 'blog', label: 'Blog', route: '/blog' }
+]
 
 watch(isMenuOpen, (val) => {
 	document.body.style.overflow = val ? 'hidden' : 'auto'
