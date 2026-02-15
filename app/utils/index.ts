@@ -23,9 +23,19 @@ export function formatMoneyDecimal(number: any, fix = 0) {
 		minimumFractionDigits: fix
 	}
 
-	const formatted = number ? new Intl.NumberFormat('ru-RU', option).format(number) : '0'
+	const val = Number(number)
 
-	return `${formatted}`
+	if (isNaN(val) || !number) {
+		return '0'
+	}
+
+	try {
+		const formatted = new Intl.NumberFormat('ru-RU', option).format(val)
+		return `${formatted}`
+	} catch (e) {
+		console.error('Format error:', e)
+		return '0'
+	}
 }
 
 export function phoneNumberFormat(number: string) {
