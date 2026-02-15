@@ -20,7 +20,7 @@
 				</NuxtLinkLocale>
 			</nav>
 			<div class="flex items-center gap-6 lg:gap-3 xl:gap-5 flex-1 justify-end">
-				<!-- <LayoutHeaderLocationSelector class="lg:flex hidden" /> -->
+				<LayoutHeaderLocationSelector class="lg:flex hidden" />
 				<NuxtLinkLocale to="/" class="flex lg:hidden items-center shrink-0">
 					<img class="h-8 object-contain" src="/images/logo.svg" alt="bonvi logo" />
 				</NuxtLinkLocale>
