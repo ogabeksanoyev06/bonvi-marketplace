@@ -11,31 +11,35 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+	products: () => [],
 	productMainClass: '!p-0'
 })
 
-const settings = {
-	modules: [Autoplay],
-	spaceBetween: 16,
-	autoplay: {
-		delay: 2500,
-		disableOnInteraction: false
-	},
-	loop: true,
-	breakpoints: {
-		300: { slidesPerView: 1.2 },
-		768: { slidesPerView: 2.2 },
-		1024: { slidesPerView: 3 },
-		1280: { slidesPerView: 3.4 }
-	}
+const swiperModules = [Autoplay]
+
+const swiperBreakpoints = {
+	300: { slidesPerView: 1.2 },
+	768: { slidesPerView: 2.2 },
+	1024: { slidesPerView: 3 },
+	1280: { slidesPerView: 3.4 }
 }
 </script>
 
 <template>
 	<div class="shrink-0">
-		<Swiper v-bind="settings">
-			<SwiperSlide v-for="item in props.products || []" :key="item.id">
-				<CardProduct :item="item" imageBg="blue" :main-class="props.productMainClass" />
+		<Swiper
+			:modules="swiperModules"
+			:space-between="16"
+			:autoplay="{
+				delay: 2500,
+				disableOnInteraction: false
+			}"
+			:loop="true"
+			:breakpoints="swiperBreakpoints"
+			class="mySwiper"
+		>
+			<SwiperSlide v-for="item in props.products" :key="item.id">
+				<CardProduct :item="item" image-bg="blue" :main-class="props.productMainClass" />
 			</SwiperSlide>
 		</Swiper>
 	</div>

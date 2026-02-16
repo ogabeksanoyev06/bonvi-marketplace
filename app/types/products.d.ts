@@ -19,9 +19,10 @@ export interface IProductItem {
 	price: string
 	is_saved: boolean
 	discount_price: string | null
+	discount_percent: number // JSON-da bor, interfaysga qo'shildi
 	tab: any[]
 	images: IProductImage[]
-	rating: string
+	rating?: string // JSON-da yo'q, optional qilindi
 	in_cart_quantity: number
 	count: number
 	max_quantity: number

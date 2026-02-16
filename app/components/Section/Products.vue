@@ -16,7 +16,7 @@
 						</div>
 					</template>
 					<template v-else>
-						<SectionCarouselProducts :products="data?.results" />
+						<SectionCarouselProducts :products="data?.results || []" />
 					</template>
 				</transition>
 			</div>
@@ -24,7 +24,7 @@
 			<transition name="fade" mode="out-in">
 				<div class="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
 					<template v-if="isPending">
-						<CardProductLoading v-for="key in 8" :key="key" />
+						<CardProductLoading v-for="key in 8" :key="'loading-' + key" />
 					</template>
 					<template v-else>
 						<CardProduct v-for="item in data?.results || []" :key="item.id" :item="item" imageBg="blue" />

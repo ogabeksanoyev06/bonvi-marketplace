@@ -3,7 +3,7 @@
 		<MainHeroBanner />
 		<SectionTopProducts />
 		<MainAbout />
-		<!-- <SectionProducts /> -->
+		<SectionProducts />
 		<SectionCraftsmen />
 		<MainCourses />
 		<MainBlogAndNews />
