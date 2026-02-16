@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<!-- <UIDropdown v-if="isAuthenticated" :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
+		<UIDropdown v-if="isAuthenticated" :show="showDropdown" @toggle="handleDropdownToggle" body-class="!min-w-[200px] bg-white border-2 border-gray">
 			<template #head="{ show }">
 				<div
 					class="flex items-center md:h-14 gap-1 bg-gray pr-2 md:pr-4 rounded-full border-2 border-transparent overflow-hidden cursor-pointer transition-300"
-					:class="[show ? '!border-blue bg-white' : '']"
+					:class="{ '!border-blue bg-white': show }"
 				>
 					<img src="/images/user.png" alt="user" class="rounded-full size-10 md:size-14 aspect-square" />
 					<i class="icon-chevron flex-center text-2xl leading-6 aspect-square transition-300" :class="[show ? '!rotate-180' : '']" />
@@ -30,7 +30,7 @@
 
 		<UIButton text="Kirish" icon="icon-logout text-2xl leading-6 lg:block hidden" v-else class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true" />
 
-		<ModalAuth v-model="authModal" /> -->
+		<ModalAuth v-model="authModal" />
 	</div>
 </template>
 
