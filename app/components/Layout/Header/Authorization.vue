@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<UIDropdown v-if="isAuthenticated" :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
+		<!-- <UIDropdown v-if="isAuthenticated" :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
 			<template #head="{ show }">
 				<div
 					class="flex items-center md:h-14 gap-1 bg-gray pr-2 md:pr-4 rounded-full border-2 border-transparent overflow-hidden cursor-pointer transition-300"
@@ -26,12 +26,12 @@
 					</span>
 				</div>
 			</template>
-		</UIDropdown>
+		</UIDropdown> -->
 
-		<!-- <UIButton v-else class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true">
+		<UIButton class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true">
 			Kirish
 			<span class="icon-logout text-2xl leading-6 lg:block hidden"></span>
-		</UIButton> -->
+		</UIButton>
 
 		<ModalAuth v-model="authModal" />
 	</div>
