@@ -35,7 +35,9 @@
 						<img src="/images/header/basket.svg" alt="icon cart" />
 					</NuxtLinkLocale>
 					<div class="w-0.5 h-[30px] rounded-full bg-gray shrink-0 lg:block hidden" />
-					<LayoutHeaderAuthorization />
+					<ClientOnly>
+						<LayoutHeaderAuthorization />
+					</ClientOnly>
 				</div>
 			</div>
 		</div>

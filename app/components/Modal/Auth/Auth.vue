@@ -113,7 +113,7 @@ const { $axios } = useNuxtApp()
 const authStore = useAuthStore()
 
 const { isAuthenticated } = storeToRefs(authStore)
-const { setTokens } = authStore
+const { setTokens, updateUser } = authStore
 
 const { showToast } = useCustomToast()
 const dayjs = useDayjs()
@@ -169,10 +169,10 @@ const { mutateAsync: verifyCode, isPending: isVerifying } = useMutation({
 })
 
 const handleSave = async () => {
-	// await updateUser({
-	// 	full_name: form.values.full_name,
-	// 	date_birth: dayjs(form.values.birthday).format('YYYY-MM-DD')
-	// })
+	await updateUser({
+		full_name: form.values.full_name,
+		date_birth: dayjs(form.values.birthday).format('YYYY-MM-DD')
+	})
 	isOpen.value = false
 	step.value = 1
 	form.values = {
