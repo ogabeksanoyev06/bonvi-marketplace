@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<transition name="fade" mode="out-in">
-			<div v-if="true" class="bg-white rounded-[40px] px-4 py-6 md:px-10 md:py-6">
+			<div v-if="isPending" class="bg-white rounded-[40px] px-4 py-6 md:px-10 md:py-6">
 				<div class="container flex flex-col gap-6 max-w-[1120px] mx-auto w-full animate-pulse">
 					<div class="h-10 md:h-12 skeleton rounded-xl w-3/4"></div>
 					<div class="flex flex-col gap-3">
