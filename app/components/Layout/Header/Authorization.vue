@@ -28,10 +28,10 @@
 			</template>
 		</UIDropdown>
 
-		<UIButton v-else class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true">
+		<!-- <UIButton v-else class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true">
 			Kirish
 			<span class="icon-logout text-2xl leading-6 lg:block hidden"></span>
-		</UIButton>
+		</UIButton> -->
 
 		<ModalAuth v-model="authModal" />
 	</div>
