@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<!-- <UIDropdown v-if="isAuthenticated" :show="showDropdown" @toggle="handleDropdownToggle" body-class="!min-w-[200px] bg-white border-2 border-gray">
+		<UIDropdown v-if="isAuthenticated" :show="showDropdown" @toggle="handleDropdownToggle" body-class="!min-w-[200px] bg-white border-2 border-gray">
 			<template #head="{ show }">
 				<div
 					class="flex items-center md:h-14 gap-1 bg-gray pr-2 md:pr-4 rounded-full border-2 border-transparent overflow-hidden cursor-pointer transition-300"
@@ -26,21 +26,21 @@
 					</span>
 				</div>
 			</template>
-		</UIDropdown> -->
+		</UIDropdown>
 
-		<!-- <UIButton text="Kirish" icon="icon-logout text-2xl leading-6 lg:block hidden" class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true" />
+		<UIButton text="Kirish" icon="icon-logout text-2xl leading-6 lg:block hidden" v-else class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true" />
 
-		<ModalAuth v-model="authModal" /> -->sasas
+		<ModalAuth v-model="authModal" />
 	</div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 const showDropdown = ref(false)
 
-// const auth = useAuthStore()
+const auth = useAuthStore()
 
-// const { isAuthenticated, authModal } = storeToRefs(auth)
-// const { logout } = auth
+const { isAuthenticated, authModal } = storeToRefs(auth)
+const { logout } = auth
 
 const profileMenu = [
 	{
@@ -69,20 +69,20 @@ const profileMenu = [
 	}
 ]
 
-function handleDropdownToggle(val: boolean) {
+function handleDropdownToggle(val) {
 	showDropdown.value = val
 }
 
-// function handleItemClick(item: any) {
-// 	showDropdown.value = false
+function handleItemClick(item) {
+	showDropdown.value = false
 
-// 	if (item.key === 'logout') {
-// 		logout()
-// 		return
-// 	}
+	if (item.key === 'logout') {
+		logout()
+		return
+	}
 
-// 	if (item.route) {
-// 		navigateTo(item.route)
-// 	}
-// }
+	if (item.route) {
+		navigateTo(item.route)
+	}
+}
 </script>

@@ -13,18 +13,7 @@ export default defineNuxtConfig({
 			]
 		}
 	},
-	modules: [
-		'@nuxtjs/i18n',
-		'@nuxtjs/tailwindcss',
-		[
-			'@pinia/nuxt',
-			{
-				autoImports: ['defineStore', ['defineStore', 'definePiniaStore']]
-			}
-		],
-		'@nuxt/eslint',
-		'@vueuse/nuxt'
-	],
+	modules: ['@nuxtjs/i18n', '@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxt/eslint', '@vueuse/nuxt'],
 	i18n: {
 		locales: [
 			{
@@ -58,5 +47,8 @@ export default defineNuxtConfig({
 		compilation: {
 			strictMessage: false
 		}
+	},
+	pinia: {
+		storesDirs: ['./stores/**']
 	}
 })
