@@ -37,10 +37,10 @@
 <script lang="ts" setup>
 const showDropdown = ref(false)
 
-const auth = useAuthStore()
+// const auth = useAuthStore()
 
-const { isAuthenticated, authModal } = storeToRefs(auth)
-const { logout } = auth
+// const { isAuthenticated, authModal } = storeToRefs(auth)
+// const { logout } = auth
 
 const profileMenu = [
 	{
@@ -73,16 +73,16 @@ function handleDropdownToggle(val: boolean) {
 	showDropdown.value = val
 }
 
-function handleItemClick(item: any) {
-	showDropdown.value = false
+// function handleItemClick(item: any) {
+// 	showDropdown.value = false
 
-	if (item.key === 'logout') {
-		logout()
-		return
-	}
+// 	if (item.key === 'logout') {
+// 		logout()
+// 		return
+// 	}
 
-	if (item.route) {
-		navigateTo(item.route)
-	}
-}
+// 	if (item.route) {
+// 		navigateTo(item.route)
+// 	}
+// }
 </script>
