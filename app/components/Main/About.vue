@@ -14,18 +14,18 @@
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
 				<div
-					v-for="item in data?.results"
-					:key="item.id"
+					v-for="item in data?.results || []"
+					:key="item?.id"
 					class="flex flex-col items-start min-h-[327px] sm:min-h-[383px] gap-6 rounded-[40px] border-2 border-white/10 bg-black/10 backdrop-blur-[20px] px-8 pt-8 relative overflow-hidden z-10 hover:backdrop-blur-2xl transition-300"
 				>
-					<img :src="item.logo" :alt="item.title" class="h-14 object-contain" />
-					<p class="text-base leading-140 text-white">{{ item.description }}</p>
-					<a :href="item.link" target="_blank">
+					<img :src="item?.logo" :alt="item?.title" class="h-14 object-contain" />
+					<p class="text-base leading-140 text-white">{{ item?.description }}</p>
+					<a :href="item?.link" target="_blank">
 						<UIButton text="Batafsil" class="!bg-white !text-dark" icon="icon-more text-2xl leading-6" />
 					</a>
 					<img
-						:src="item.image"
-						:alt="item.title"
+						:src="item?.image"
+						:alt="item?.title"
 						class="absolute -bottom-8 z-[-1] right-2 w-[186px] aspect-[186.10/186.10] sm:w-[280px] sm:aspect-[280.06/254.06] object-contain"
 					/>
 				</div>
