@@ -1,38 +1,40 @@
 <template>
-	<UIDropdown v-if="isAuthenticated" :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
-		<template #head="{ show }">
-			<div
-				class="flex items-center md:h-14 gap-1 bg-gray pr-2 md:pr-4 rounded-full border-2 border-transparent overflow-hidden cursor-pointer transition-300"
-				:class="[show ? '!border-blue bg-white' : '']"
-			>
-				<img src="/images/user.png" alt="user" class="rounded-full size-10 md:size-14 aspect-square" />
-				<i class="icon-chevron flex-center text-2xl leading-6 aspect-square transition-300" :class="[show ? '!rotate-180' : '']" />
-			</div>
-		</template>
+	<div>
+		<UIDropdown v-if="isAuthenticated" :show="showDropdown" @toggle="handleDropdownToggle" :body-class="['!min-w-[200px] bg-white border-2 border-gray']">
+			<template #head="{ show }">
+				<div
+					class="flex items-center md:h-14 gap-1 bg-gray pr-2 md:pr-4 rounded-full border-2 border-transparent overflow-hidden cursor-pointer transition-300"
+					:class="[show ? '!border-blue bg-white' : '']"
+				>
+					<img src="/images/user.png" alt="user" class="rounded-full size-10 md:size-14 aspect-square" />
+					<i class="icon-chevron flex-center text-2xl leading-6 aspect-square transition-300" :class="[show ? '!rotate-180' : '']" />
+				</div>
+			</template>
 
-		<template #body>
-			<div
-				v-for="item in profileMenu"
-				:key="item.key"
-				class="w-full group flex items-center gap-2 p-3 cursor-pointer border-b border-gray last:border-b-0 transition-300 hover:bg-gray/50"
-				@click="handleItemClick(item)"
-			>
-				<span class="size-7 flex-center rounded-full p-1 shrink-0" :class="[item.key === 'logout' ? 'text-red bg-[#F110001F]' : 'bg-gray']">
-					<i class="text-xl leading-5 transition-300" :class="item.icon" />
-				</span>
-				<span class="text-sm font-medium leading-140 transition-300">
-					{{ item.label }}
-				</span>
-			</div>
-		</template>
-	</UIDropdown>
+			<template #body>
+				<div
+					v-for="item in profileMenu"
+					:key="item.key"
+					class="w-full group flex items-center gap-2 p-3 cursor-pointer border-b border-gray last:border-b-0 transition-300 hover:bg-gray/50"
+					@click="handleItemClick(item)"
+				>
+					<span class="size-7 flex-center rounded-full p-1 shrink-0" :class="[item.key === 'logout' ? 'text-red bg-[#F110001F]' : 'bg-gray']">
+						<i class="text-xl leading-5 transition-300" :class="item.icon" />
+					</span>
+					<span class="text-sm font-medium leading-140 transition-300">
+						{{ item.label }}
+					</span>
+				</div>
+			</template>
+		</UIDropdown>
 
-	<UIButton v-else class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true">
-		Kirish
-		<span class="icon-logout text-2xl leading-6 lg:block hidden"></span>
-	</UIButton>
+		<UIButton v-else class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true">
+			Kirish
+			<span class="icon-logout text-2xl leading-6 lg:block hidden"></span>
+		</UIButton>
 
-	<ModalAuth v-model="authModal" />
+		<ModalAuth v-model="authModal" />
+	</div>
 </template>
 
 <script setup>
