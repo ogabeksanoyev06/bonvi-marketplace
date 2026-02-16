@@ -34,7 +34,7 @@
 	</div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 const showDropdown = ref(false)
 
 const auth = useAuthStore()
@@ -69,11 +69,11 @@ const profileMenu = [
 	}
 ]
 
-function handleDropdownToggle(val) {
+function handleDropdownToggle(val: boolean) {
 	showDropdown.value = val
 }
 
-function handleItemClick(item) {
+function handleItemClick(item: any) {
 	showDropdown.value = false
 
 	if (item.key === 'logout') {
