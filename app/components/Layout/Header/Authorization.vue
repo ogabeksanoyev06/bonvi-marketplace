@@ -35,12 +35,14 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
+
 const showDropdown = ref(false)
 
-const auth = useAuthStore()
+const authStore = useAuthStore()
 
-const { isAuthenticated, authModal } = storeToRefs(auth)
-const { logout } = auth
+const { isAuthenticated, authModal } = storeToRefs(authStore)
+const { logout } = authStore
 
 const profileMenu = [
 	{
