@@ -20,14 +20,14 @@
 				</NuxtLinkLocale>
 			</nav>
 			<div class="flex items-center gap-6 lg:gap-3 xl:gap-5 flex-1 justify-end">
-				<LayoutHeaderLocationSelector class="lg:flex hidden" />
+				<!-- <LayoutHeaderLocationSelector class="lg:flex hidden" /> -->
 				<NuxtLinkLocale to="/" class="flex lg:hidden items-center shrink-0">
 					<img class="h-8 object-contain" src="/images/logo.svg" alt="bonvi logo" />
 				</NuxtLinkLocale>
 				<div class="flex items-center gap-3">
-					<LayoutHeaderLangSwitcher class="lg:flex hidden" />
+					<!-- <LayoutHeaderLangSwitcher class="lg:flex hidden" /> -->
 					<div class="w-0.5 h-[30px] rounded-full bg-gray shrink-0 hidden lg:block" />
-					<LayoutHeaderSearch />
+					<!-- <LayoutHeaderSearch /> -->
 					<NuxtLinkLocale to="/favorites" class="relative hidden lg:flex-center size-9 bg-[#F6E03929] rounded-full p-1">
 						<img src="/images/header/favourite.svg" alt="icon favorites" />
 					</NuxtLinkLocale>
@@ -35,7 +35,7 @@
 						<img src="/images/header/basket.svg" alt="icon cart" />
 					</NuxtLinkLocale>
 					<div class="w-0.5 h-[30px] rounded-full bg-gray shrink-0 lg:block hidden" />
-					<LayoutHeaderAuthorization />
+					<!-- <LayoutHeaderAuthorization /> -->
 				</div>
 			</div>
 		</div>
