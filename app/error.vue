@@ -1,7 +1,7 @@
 <template>
-  <NuxtLayout name="default">
-    <div class="flex items-center justify-center pt-10">404</div>
-  </NuxtLayout>
+	<NuxtLayout name="default">
+		<div class="flex items-center justify-center pt-10">404</div>
+	</NuxtLayout>
 </template>
 
 <script setup></script>

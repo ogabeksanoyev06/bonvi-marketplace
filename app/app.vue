@@ -6,7 +6,4 @@
 		</NuxtLayout>
 	</div>
 </template>
-<script setup lang="ts">
-const access_token = useCookie('access_token')
-const refresh_token = useCookie('refresh_token')
-</script>
+<script setup lang="ts"></script>
