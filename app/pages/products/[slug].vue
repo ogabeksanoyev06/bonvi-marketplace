@@ -25,7 +25,7 @@
 				</div>
 			</div>
 		</transition>
-		<SectionCustomerReviews />
+		<SectionCustomerReviews :slug="slug" />
 	</div>
 </template>
 

@@ -20,14 +20,7 @@
 								<CardCourseLoading v-for="key in 6" :key="key" />
 							</template>
 							<template v-else>
-								<CardCourse
-									v-for="(course, index) in data?.results"
-									:key="course.id"
-									:title="course.title"
-									:lessonNumber="index + 1"
-									:image="course.thumbnail || '/images/course-placeholder.webp'"
-									:isLocked="course.is_for_premium"
-								/>
+								<CardCourse v-for="(item, index) in data?.results || []" :key="item.id" :item="item" />
 							</template>
 						</div>
 					</transition>
@@ -71,8 +64,6 @@
 								</a>
 							</template>
 						</template>
-
-						<p v-if="!isPending && !allDocsCount" class="text-gray-4 text-sm text-center py-4">Hozircha hujjatlar yo'q</p>
 					</div>
 				</div>
 			</div>
@@ -93,18 +84,6 @@ const { data, isPending } = useQuery({
 		return res.data
 	}
 })
-
-const allDocsCount = computed(() => {
-	return data.value?.results.reduce((acc, lesson) => acc + lesson.docs.length, 0) || 0
-})
 </script>
 
-<style scoped>
-.fade-bottom {
-	-webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-	mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-
-	scroll-behavior: smooth;
-	padding-bottom: 20px;
-}
-</style>
+<style scoped></style>

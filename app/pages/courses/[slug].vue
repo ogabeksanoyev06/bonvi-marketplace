@@ -38,44 +38,50 @@
 
 					<template v-else>
 						<div class="flex flex-col gap-8">
-							<div class="w-full max-w-full aspect-video rounded-[20px] overflow-hidden">
-								<iframe
-									class="w-full h-full"
-									src="https://www.youtube-nocookie.com/embed/ljk9pMyS8ks?rel=0&modestbranding=1&iv_load_policy=3&controls=1&showinfo=0"
-									title="Video"
-									allowfullscreen
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-									referrerpolicy="strict-origin-when-cross-origin"
-								></iframe>
+							<div class="w-full max-w-full aspect-video rounded-[20px] overflow-hidden bg-black shadow-inner">
+								<video
+									ref="videoRef"
+									:src="course?.lesson.video_file_url"
+									controlsList="nodownload"
+									disablePictureInPicture
+									playsinline
+									controls
+									preload="metadata"
+									class="w-full h-full object-contain"
+									@contextmenu.prevent
+								/>
 							</div>
 
 							<div class="flex flex-col gap-6">
 								<div class="flex flex-col gap-2">
 									<div class="flex gap-2">
-										<div class="flex-y-center gap-1.5 p-1.5 bg-blue-light rounded-[10px]">
+										<!-- <div class="flex-y-center gap-1.5 p-1.5 bg-blue-light rounded-[10px]">
 											<i class="icon-heart text-xl leading-5 text-blue"></i>
-											<span class="text-sm font-medium leading-130 text-black">255</span>
-										</div>
+											<span class="text-sm font-medium leading-130 text-black">{{ course?.lesson.is_liked }}</span>
+										</div> -->
 										<div class="flex-y-center gap-1.5 p-1.5 bg-blue-light rounded-[10px]">
 											<i class="icon-eye text-xl leading-5 text-blue"></i>
-											<span class="text-sm font-medium leading-130 text-black">687</span>
+											<span class="text-sm font-medium leading-130 text-black">{{ course?.lesson.view_count }}</span>
 										</div>
 										<div class="flex-y-center gap-1.5 p-1.5 bg-blue-light rounded-[10px]">
 											<i class="icon-clock text-xl leading-5 text-blue"></i>
-											<span class="text-sm font-medium leading-130 text-black">1:03:32</span>
+											<span class="text-sm font-medium leading-130 text-black">{{ formatDuration(course?.lesson.duration_minutes).hms }}</span>
 										</div>
 									</div>
-									<h2 class="text-[28px] leading-130 font-bold">Mahsulotni tushunish va savdo asoslari</h2>
-									<p class="text-base leading-130">
-										Mahsulot (Product) – bu bozor ehtiyojini qondira oladigan har qanday narsa (tovar, xizmat, g‘oya, tajriba yoki loyiha). Mahsulot moddiy (telefon, kiyim) yoki
-										nomoddiy (konsultatsiya, xizmat) bo‘lishi mumkin.
-									</p>
+									<h2 class="text-[28px] leading-130 font-bold">{{ course?.lesson.title }}</h2>
+									<p class="text-base leading-130">{{ course?.lesson.description }}</p>
 								</div>
 								<div class="h-px bg-gray w-full"></div>
 								<div class="flex flex-col gap-4">
 									<h3 class="text-xl font-bold leading-130">Biriktirilgan fayllar</h3>
 									<div class="grid md:grid-cols-2 gap-5">
-										<div v-for="key in 2" :key class="bg-gray flex items-center justify-between px-4 py-3 rounded-[20px] cursor-pointer">
+										<a
+											v-for="(item, i) in course?.lesson.docs"
+											:key="item.id"
+											target="_blank"
+											:href="item.file_url"
+											class="bg-gray flex items-center justify-between px-4 py-3 rounded-[20px] cursor-pointer"
+										>
 											<div class="flex-y-center gap-2.5">
 												<img src="/images/document.svg" alt="document icon" class="size-10" />
 												<div>
@@ -86,32 +92,24 @@
 											<div class="bg-black rounded-full size-10 flex-center p-2">
 												<i class="icon-download text-white text-2xl leading-6"></i>
 											</div>
-										</div>
+										</a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</template>
 				</transition>
-				<UIButton class="md:hidden block" text="Ko‘proq ko‘rish" icon="icon-chevron -rotate-90 text-2xl leading-6" />
 			</div>
 			<div class="lg:col-span-3 flex flex-col gap-4">
 				<transition name="fade" mode="out-in">
 					<div class="grid grid-cols-1 gap-5">
 						<template v-if="isPending">
-							<CardCourseLoading v-for="key in 6" :key="key" />
+							<CardCourseLoading v-for="key in 3" :key="key" />
 						</template>
 						<template v-else>
 							<div class="flex flex-col gap-4">
 								<h3 class="text-xl sm:text-2xl !leading-140 font-bold">Keyingi darsliklar</h3>
-								<CardCourse
-									v-for="course in courses"
-									:key="course.id"
-									:title="course.title"
-									:lessonNumber="course.lessonNumber"
-									:image="course.image"
-									:isLocked="course.isLocked"
-								/>
+								<CardCourse v-for="(item, index) in course?.next_lessons || []" :key="item.id" :item="item" />
 							</div>
 						</template>
 					</div>
@@ -122,46 +120,28 @@
 </template>
 
 <script setup lang="ts">
-const breadcrumbItems = [
-	{
-		name: 'Darsliklar',
-		path: '/courses'
-	},
-	{
-		name: 'Mahsulotni tushunish va savdo asoslari',
-		path: ''
-	}
-]
+import { useRoute } from 'vue-router'
+import { useQuery } from '@tanstack/vue-query'
+import type { ILessonSingleResponse } from '~/types/course.d'
 
-const isPending = ref(true)
+const dayjs = useDayjs()
 
-const courses = ref([
-	{
-		id: 1,
-		title: 'Balasni ushlashni o‘rganish',
-		lessonNumber: 1,
-		image: '/images/course-1.webp',
-		isLocked: false
-	},
-	{
-		id: 2,
-		title: 'Asosiy texnikalarni mustahkamlash',
-		lessonNumber: 2,
-		image: '/images/course-2.webp',
-		isLocked: true
-	},
-	{
-		id: 3,
-		title: 'Avtomobilni sozlash bo‘yicha dars',
-		lessonNumber: 3,
-		image: '/images/course-3.webp',
-		isLocked: false
-	}
-])
+const { $axios } = useNuxtApp()
 
-onMounted(() => {
-	setTimeout(() => {
-		isPending.value = false
-	}, 2000)
+const route = useRoute()
+const slug = route.params.slug as string
+
+const { data: course, isPending } = useQuery({
+	queryKey: ['course', slug],
+	queryFn: async () => {
+		const res = await $axios.get<ILessonSingleResponse>(`marketing/lesson-detail/${slug}/`)
+		return res.data
+	},
+	enabled: !!slug
 })
+
+const breadcrumbItems = computed(() => [
+	{ name: 'Darsliklar', path: '/courses' },
+	{ name: course.value?.lesson.title ?? '', path: '' }
+])
 </script>

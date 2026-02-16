@@ -13,7 +13,9 @@
 		<div class="h-4 w-1/3 skeleton rounded"></div>
 
 		<!-- Review text -->
-		<div class="space-y-2 mt-2">
+		<div class="space-y-1 mt-2">
+			<div class="h-3 w-full skeleton rounded"></div>
+			<div class="h-3 w-full skeleton rounded"></div>
 			<div class="h-3 w-full skeleton rounded"></div>
 			<div class="h-3 w-5/6 skeleton rounded"></div>
 			<div class="h-3 w-4/6 skeleton rounded"></div>

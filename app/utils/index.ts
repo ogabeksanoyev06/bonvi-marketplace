@@ -102,3 +102,24 @@ export const maskPhone = (value: string) => {
 export async function copyText(text: string) {
 	await navigator.clipboard.writeText(text)
 }
+
+export const formatDuration = (totalMinutes: number = 0) => {
+	const hours = Math.floor(totalMinutes / 60)
+	const minutes = Math.floor(totalMinutes % 60)
+	const seconds = Math.round((totalMinutes - Math.floor(totalMinutes)) * 60)
+
+	const hms = [String(hours).padStart(2, '0'), String(minutes).padStart(2, '0'), String(seconds).padStart(2, '0')].join(':')
+
+	const longParts = []
+	if (hours > 0) longParts.push(`${hours} soat`)
+	if (minutes > 0 || hours === 0) longParts.push(`${minutes} daqiqa`)
+	const long = longParts.join(' ')
+
+	const short = `${Math.floor(totalMinutes)} min`
+
+	return {
+		hms,
+		long,
+		short
+	}
+}

@@ -67,7 +67,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { useQuery } from '@tanstack/vue-query'
+
+const { $axios } = useNuxtApp()
 
 const props = defineProps({
 	questions: {
@@ -94,7 +96,6 @@ const selected = computed({
 	}
 })
 
-// Keyingi savol
 function nextQuestion() {
 	if (selected.value === null) return
 	if (currentIndex.value < props.questions.length - 1) {
@@ -103,13 +104,19 @@ function nextQuestion() {
 	}
 }
 
-// Oldingi savol
 function prevQuestion() {
 	if (currentIndex.value > 0) {
 		direction.value = 'prev'
 		currentIndex.value--
 	}
 }
+
+const { isPending, data } = useQuery({
+	queryKey: ['test-start'],
+	queryFn: async () => {
+		return await $axios.get('marketing/daily-tests/').then((res) => res.data)
+	}
+})
 </script>
 
 <style scoped>

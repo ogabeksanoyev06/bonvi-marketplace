@@ -48,7 +48,7 @@
 			<div class="absolute bottom-0 right-0 z-[5]" v-if="item?.discount_price">
 				<div class="relative">
 					<img src="/images/discount.svg" alt="discount" />
-					<span class="absolute top-[57px] left-[52px] -translate-y-1/2 text-xs leading-130 font-normal text-white"> {{ item?.discount_percent || 51 }}% </span>
+					<span class="absolute top-[57px] left-[52px] -translate-y-1/2 text-xs leading-130 font-normal text-white"> {{ Math.floor(item?.discount_percent || 0) }}% </span>
 				</div>
 			</div>
 		</div>
@@ -59,8 +59,17 @@
 				<p class="text-sm leading-130 text-ellipsis line-clamp-2 text-gray-2">{{ item?.description }}</p>
 
 				<div class="mt-auto">
-					<span class="text-base sm:text-xl font-bold leading-130 text-dark"> {{ formatMoneyDecimal(item?.price) }} <span class="font-normal text-sm">UZS</span> </span>
-					<span class="text-sm sm:text-base !leading-130 line-through ml-2 opacity-60" v-if="item?.discount_price"> {{ formatMoneyDecimal(item?.discount_price) }} UZS </span>
+					<span v-if="item?.discount_price" class="text-base sm:text-xl font-bold leading-130 text-dark">
+						{{ formatMoneyDecimal(item.discount_price) }}
+						<span class="font-normal">UZS</span>
+					</span>
+
+					<span v-if="item?.discount_price" class="text-sm sm:text-base leading-130 line-through opacity-60 ml-2"> {{ formatMoneyDecimal(item.price) }} UZS </span>
+
+					<span v-else class="text-base sm:text-xl font-bold leading-130 text-dark">
+						{{ formatMoneyDecimal(item.price) }}
+						<span class="font-normal text-sm">UZS</span>
+					</span>
 				</div>
 			</NuxtLinkLocale>
 

@@ -39,15 +39,25 @@
 </template>
 <script lang="ts" setup>
 import { useInfiniteQuery } from '@tanstack/vue-query'
+
 const { $axios } = useNuxtApp()
 
-const { isPending, data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+const route = useRoute()
+
+const { isPending, data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = useInfiniteQuery({
 	queryKey: ['craftsmen'],
 	queryFn: async ({ pageParam = 0 }) => {
 		const res = await $axios.get('products/list/', {
 			params: {
 				limit: 9,
-				offset: pageParam
+				offset: pageParam,
+				// URL-dagi barcha filtrlarni API-ga uzatamiz
+				search: route.query.search,
+				price_min: route.query.price_min,
+				price_max: route.query.price_max,
+				has_discount: route.query.has_discount,
+				is_top: route.query.is_top,
+				brand: route.query.brand
 			}
 		})
 		return res.data
@@ -55,6 +65,14 @@ const { isPending, data, fetchNextPage, hasNextPage, isFetchingNextPage } = useI
 	getNextPageParam: (lastPage, allPages) => getNextPageOffset(lastPage, allPages, 9),
 	initialPageParam: 0
 })
+
+watch(
+	() => route.query,
+	() => {
+		refetch()
+	},
+	{ deep: true }
+)
 
 const breadcrumbItems = [
 	{

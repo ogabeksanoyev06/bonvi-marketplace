@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-white rounded-2xl p-4 w-full flex flex-col gap-3">
+	<div class="bg-white rounded-2xl w-full flex flex-col gap-3">
 		<div class="skeleton rounded-2xl aspect-video w-full relative">
 			<div class="absolute inset-0 flex items-center justify-center">
 				<div class="w-16 h-16 skeleton rounded-full opacity-80"></div>

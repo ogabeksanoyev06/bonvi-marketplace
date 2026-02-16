@@ -57,6 +57,25 @@ const { data: blog, isPending } = useQuery({
 	enabled: !!slug
 })
 
+// SEO
+const seoSettings = {
+	uz: { suffix: 'Bonvi Market', default: 'Bonvi Market - Skuterlar, shinalar va sifatli mahsulotlar.' },
+	ru: { suffix: 'Bonvi Market', default: 'Bonvi Market - Скутеры, шины и качественные товары.' },
+	en: { suffix: 'Bonvi Market', default: 'Bonvi Market - Scooters, tires and quality products.' }
+}
+
+useSeoMeta({
+	title: () => (blog.value ? `${blog.value.title} - ` : ''),
+	description: () => (blog.value ? blog.value.description.replace(/<[^>]*>/g, '').substring(0, 160) : ''),
+	ogTitle: () => (blog.value ? blog.value.title : ''),
+	ogDescription: () => (blog.value ? blog.value.description.replace(/<[^>]*>/g, '').substring(0, 160) : ''),
+	ogImage: () => blog.value?.image || '/images/og-image.svg',
+	ogUrl: () => `https://adam.shifo24.com/blog-slug?slug=${slug}`,
+	twitterTitle: () => (blog.value ? blog.value.title : ''),
+	twitterDescription: () => (blog.value ? blog.value.description.replace(/<[^>]*>/g, '').substring(0, 160) : ''),
+	twitterImage: () => blog.value?.image || '/images/og-image.svg'
+})
+
 const breadcrumbItems = computed(() => [
 	{ name: 'Blog', path: '/blog' },
 	{ name: blog.value?.title || '...', path: '' }

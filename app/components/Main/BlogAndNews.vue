@@ -12,7 +12,6 @@
 				<div v-if="isPending" key="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
 					<CardBlogLoading v-for="i in 3" :key="i" />
 				</div>
-
 				<div v-else key="content" class="flex flex-col gap-6 md:gap-10">
 					<div class="flex flex-col md:flex-row md:items-stretch gap-6 md:gap-10 bg-white rounded-2xl overflow-hidden">
 						<div class="relative md:max-w-[582px] w-full aspect-video md:aspect-auto h-[340px]">

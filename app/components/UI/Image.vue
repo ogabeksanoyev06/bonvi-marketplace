@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 interface Props {
-	src: string | undefined
+	src: string | undefined | null
 	alt?: string
 	errorState?: string
 	imageClass?: string | string[] | object
