@@ -7,8 +7,8 @@ export const useAuthStore = defineStore('auth', () => {
 	const route = useRoute()
 	const { showToast } = useCustomToast()
 
-	const access_token = useCookie<string | null>('access_token')
-	const refresh_token = useCookie<string | null>('refresh_token')
+	const access_token = useCookie<string | null>('access_token', { default: () => null })
+	const refresh_token = useCookie<string | null>('refresh_token', { default: () => null })
 
 	const user = ref<any>(null)
 	const authModal = ref(false)
