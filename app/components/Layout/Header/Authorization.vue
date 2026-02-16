@@ -26,11 +26,11 @@
 					</span>
 				</div>
 			</template>
-		</UIDropdown> -->
+		</UIDropdown>
 
-		<UIButton text="Kirish" icon="icon-logout text-2xl leading-6 lg:block hidden" class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true" />
+		<UIButton text="Kirish" icon="icon-logout text-2xl leading-6 lg:block hidden" v-else class="font-medium lg:max-w-[100px] w-full h-8 lg:h-auto" @click="authModal = true" />
 
-		<ModalAuth v-model="authModal" />
+		<ModalAuth v-model="authModal" /> -->
 	</div>
 </template>
 
