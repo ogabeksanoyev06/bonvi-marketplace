@@ -1,13 +1,13 @@
 <template>
 	<div class="space-y-8 md:space-y-10">
 		<MainHeroBanner />
-		<!-- <SectionTopProducts /> -->
+		<!-- <SectionTopProducts />
 		<MainAbout />
-		<!-- <SectionProducts /> -->
+		<SectionProducts />
 		<SectionCraftsmen />
 		<MainCourses />
 		<MainBlogAndNews />
-		<CommonFaq />
+		<CommonFaq /> -->
 	</div>
 </template>
 <script setup></script>
