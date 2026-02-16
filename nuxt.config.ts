@@ -50,5 +50,8 @@ export default defineNuxtConfig({
 	},
 	pinia: {
 		storesDirs: ['./stores/**']
+	},
+	build: {
+		transpile: ['vue-toastification']
 	}
 })
